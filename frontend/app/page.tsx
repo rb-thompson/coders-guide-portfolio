@@ -1,101 +1,120 @@
-import Image from "next/image";
+"use client"; // Mark this as a client component for interactivity
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import type { Container, ISourceOptions } from "@tsparticles/engine";
+import { loadAll } from "@tsparticles/all";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [init, setInit] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  // Initialize the tsParticles engine
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadAll(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
+
+  const particlesLoaded = useCallback(async (container?: Container): Promise<void> => {
+    console.log("Particles loaded:", container);
+  }, []);
+
+  // Particle configuration for a cosmic starfield (static, no hover effect)
+  const options: ISourceOptions = useMemo(
+    () => ({
+      fpsLimit: 60,
+      particles: {
+        color: {
+          value: "#f0f3f7", // Soft gray for stars
+        },
+        move: {
+          enable: true,
+          speed: 0.3, // Slow drift for stars
+          direction: "none",
+          random: true,
+          straight: false,
+          outModes: {
+            default: "out",
+          },
+        },
+        number: {
+          density: {
+            enable: true,
+            value_area: 1000,
+          },
+          value: 600, // Dense starfield
+        },
+        opacity: {
+          value: 0.5,
+          animation: {
+            enable: true,
+            speed: 0.5,
+            minimumValue: 0.1,
+            sync: false,
+          },
+        },
+        size: {
+          value: { min: 0.5, max: 1.5 }, // Small stars for depth
+          random: true,
+          animation: {
+            enable: true,
+            speed: 2,
+            minimumValue: 0.1,
+            sync: false,
+          },
+        },
+      },
+      detectRetina: true,
+    }),
+    [] // No dependencies, as options are static
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-indigo-900 text-gray-200 flex flex-col items-center justify-center p-4">
+      {/* Starry Background */}
+      {init && (
+        <Particles
+          id="tsparticles"
+          options={options}
+          particlesLoaded={particlesLoaded}
+          className="absolute inset-0 z-0"
+        />
+      )}
+
+      {/* Guidebook Content */}
+      <motion.div
+        className="relative z-10 text-center"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <h1 className="text-3xl md:text-6xl font-bold mb-4">
+          Welcome to the Data Galaxy, Coder!
+        </h1>
+        <p className="text-lg md:text-xl mb-8">
+          Your portfolio project is just a wormhole away. Don’t Panic—grab your guidebook and start your journey!
+        </p>
+        <Link href="/quests">
+          <motion.div
+            className="text-gray-100 text-lg font-semibold flex justify-center items-center space-x-2 hover:text-indigo-300 transition-colors"
+            whileHover={{ x: 10 }} // Slight shift on hover
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <span>Start Your Cosmic Journey</span>
+            <motion.span
+              className="text-indigo-300"
+              initial={{ x: 0 }}
+              whileHover={{ x: 5 }} // Arrow moves further on hover
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              →
+            </motion.span>
+          </motion.div>
+        </Link>
+      </motion.div>
     </div>
   );
 }

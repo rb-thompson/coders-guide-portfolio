@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tsparticles/all": "^3.8.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
     "framer-motion": "^12.4.3",
+    "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
