@@ -35,11 +35,14 @@ export default function Quests() {
               exit={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
             >
-              <div className={`w-5/6 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg ${index % 2 === 0 ? 'ml-auto' : 'mr-auto'} flex flex-col justify-between`}>
+              <div className={`w-5/6 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-xl ${index % 2 === 0 ? 'ml-auto' : 'mr-auto'} flex flex-col justify-between`}>
                 <div>
                     <div className="grid grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
                         <span className="text-2xl font-normal text-blue-500">{chapter.title}</span>
-                        <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 text-lg font-normal">
+                        <span className="w-auto h-6 rounded-lg bg-indigo-400/20 flex items-center justify-center text-gray-200 text-sm font-normal">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 mr-1">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                            </svg>
                             Chapter {chapter.id}
                         </span>
                     </div>
