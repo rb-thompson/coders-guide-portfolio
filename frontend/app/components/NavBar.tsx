@@ -24,24 +24,24 @@ export default function NavBar() {
         <div className="hidden md:flex space-x-4">
           <Link href="/" className="hover:text-indigo-300 transition-colors">
             <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+                transition={{ type: "spring", stiffness: 300 }}
             >
               Home
             </motion.span>
           </Link>
           <Link href="/quests" className="hover:text-indigo-300 transition-colors">
             <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+              transition={{ type: "spring", stiffness: 300 }}
             >
               Quests
             </motion.span>
           </Link>
           <Link href="/portfolio" className="hover:text-indigo-300 transition-colors">
             <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+              transition={{ type: "spring", stiffness: 300 }}
             >
               Portfolio
             </motion.span>
@@ -50,8 +50,8 @@ export default function NavBar() {
             <>
             <Link href="/profile" className="hover:text-indigo-300 transition-colors">
               <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+              transition={{ type: "spring", stiffness: 300 }}
               >
                 Profile
               </motion.span>
@@ -69,16 +69,16 @@ export default function NavBar() {
             <>
             <Link href="/login" className="hover:text-indigo-300 transition-colors">
               <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+              transition={{ type: "spring", stiffness: 300 }}
               >
                 Log In
               </motion.span>
             </Link>
             <Link href="/signup" className=" hover:text-indigo-300 border border-indigo-600 rounded-md px-3 transition-colors">
               <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
+              transition={{ type: "spring", stiffness: 300 }}
               >
                 Sign Up
               </motion.span>
