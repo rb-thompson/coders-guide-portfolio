@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Menu, X } from "lucide-react"; // For hamburger and close icons
+import { Menu, X, LogOut } from "lucide-react"; // For hamburger and close icons
 import { useUser } from '../contexts/UserContext';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false); // Track mobile menu state
-  const { user, setUser } = useUser(); // Track authenticated state
+  const { user, logout } = useUser(); // Use logout from context
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false); // Explicitly close the menu
@@ -47,6 +47,7 @@ export default function NavBar() {
             </motion.span>
           </Link>
           {user ? (
+            <>
             <Link href="/profile" className="hover:text-indigo-300 transition-colors">
               <motion.span
                 whileHover={{ scale: 1.1, color: "#a5b4fc" }}
@@ -55,6 +56,15 @@ export default function NavBar() {
                 Profile
               </motion.span>
             </Link>
+            <button
+              onClick={logout}
+              className="hover:text-indigo-300 transition-colors focus:outline-none"
+            >
+              <motion.span whileHover={{ scale: 1.1, color: "#a5b4fc" }}>
+                <LogOut size={24} />
+              </motion.span>
+            </button>
+          </>
           ) : (
             <Link href="/signup" className="hover:text-indigo-300 transition-colors">
               <motion.span
@@ -138,6 +148,7 @@ export default function NavBar() {
                 </motion.span>
               </Link>
               {user ? (
+                <>
                 <Link
                   href="/profile"
                   className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
@@ -150,6 +161,18 @@ export default function NavBar() {
                     Profile
                   </motion.span>
                 </Link>
+                <button
+                  onClick={() => { logout(); closeMenu(); }}
+                  className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
+                >
+                  <motion.span
+                    whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Logout
+                  </motion.span>
+                </button>
+              </>
               ) : (
                 <Link
                   href="/signup"

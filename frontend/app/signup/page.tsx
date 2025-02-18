@@ -8,14 +8,27 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { setUser } = useUser();
   const router = useRouter();
 
+  const validateForm = () => {
+    let errors: { name?: string; email?: string; password?: string } = {};
+    if (!name.trim()) errors.name = "Name is required";
+    if (!email.match(/^\S+@\S+\.\S+$/)) errors.email = "Please enter a valid email";
+    if (password.length < 6) errors.password = "Password must be at least 6 characters";
+    return errors;
+  };
+
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real scenario, send this data to a backend for validation and storage
-    setUser({ email, name, image: undefined }); // No image for now
-    router.push('/'); // Redirect to home after signup
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      setUser({ email, name, image: undefined });
+      router.push('/');
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   return (
@@ -27,7 +40,7 @@ export default function Signup() {
             
             </p>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold" htmlFor="name">Name</label>
+        <label className="block mb-2 text-sm font-bold" htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
@@ -37,6 +50,7 @@ export default function Signup() {
             placeholder="What do we call you?"
             required
           />
+          {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold" htmlFor="email">Email</label>
@@ -49,6 +63,7 @@ export default function Signup() {
             placeholder="Your Email"
             required
           />
+          {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
         </div>
         <div className="mb-6">
           <label className="block mb-2 text-sm font-bold" htmlFor="password">Password</label>
@@ -61,6 +76,7 @@ export default function Signup() {
             placeholder="Password"
             required
           />
+          {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
         </div>
         <div className="flex items-center justify-between">
           <button
