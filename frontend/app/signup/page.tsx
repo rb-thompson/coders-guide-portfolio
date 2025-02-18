@@ -33,7 +33,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 to-blue-950 text-gray-200">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 to-blue-700 text-gray-200">
       <motion.div
             className="relative z-10 text-center"
             initial={{ opacity: 0, y: 50 }}

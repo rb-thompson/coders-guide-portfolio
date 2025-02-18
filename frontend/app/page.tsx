@@ -74,7 +74,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 to-indigo-900 text-gray-200 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-700 text-gray-200 flex flex-col items-center justify-center p-4">
       {/* Starry Background */}
       {init && (
         <Particles
@@ -96,7 +96,7 @@ export default function Home() {
           Welcome to the Data Galaxy, Coder!
         </h1>
         <p className="text-lg md:text-xl mb-8">
-          Your portfolio project is just a wormhole away. <span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
+          Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
         </p>
         <Link href="/quests">
           <motion.div
