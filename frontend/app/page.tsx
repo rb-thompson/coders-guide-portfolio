@@ -96,11 +96,11 @@ export default function Home() {
           Welcome to the Data Galaxy, Coder!
         </h1>
         <p className="text-lg md:text-xl mb-8">
-          Your portfolio project is just a wormhole away. Don’t Panic—grab your guidebook and start your journey!
+          Your portfolio project is just a wormhole away. <span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
         </p>
         <Link href="/quests">
           <motion.div
-            className="text-gray-100 text-lg font-semibold flex justify-center items-center space-x-2 hover:text-indigo-300 transition-colors"
+            className="text-gray-100 text-lg tracking-wider font-semibold flex justify-center items-center space-x-2 hover:text-indigo-300 transition-colors"
             whileHover={{ x: 10 }} // Slight shift on hover
           >
             <span>Start Your Cosmic Journey</span>

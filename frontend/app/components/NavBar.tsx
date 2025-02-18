@@ -4,18 +4,21 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react"; // For hamburger and close icons
+import { useUser } from '../contexts/UserContext';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false); // Track mobile menu state
+  const { user, setUser } = useUser(); // Track authenticated state
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false); // Explicitly close the menu
 
   return (
     <div>
-      <nav className="bg-black/80 text-gray-200 p-4 flex justify-between items-center sticky top-0 z-20">
-        <Link href="/" className="text-xl font-bold">
-          The Coder's Guide
+      <nav className="bg-black/80 text-gray-200 p-4 flex justify-between items-center sticky top-0 z-20 font-light">
+        <Link href="/" className="text-sm">
+          <span className="block font-light">The Coder's Guide</span>
+          <span className="block text-center">To Portfolio Projects</span>
         </Link>
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-4">
@@ -43,14 +46,25 @@ export default function NavBar() {
               Portfolio
             </motion.span>
           </Link>
-          <Link href="/profile" className="hover:text-indigo-300 transition-colors">
-            <motion.span
-              whileHover={{ scale: 1.1, color: "#a5b4fc" }} // Indigo-300
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              Profile
-            </motion.span>
-          </Link>
+          {user ? (
+            <Link href="/profile" className="hover:text-indigo-300 transition-colors">
+              <motion.span
+                whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Profile
+              </motion.span>
+            </Link>
+          ) : (
+            <Link href="/signup" className="hover:text-indigo-300 transition-colors">
+              <motion.span
+                whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Sign Up
+              </motion.span>
+            </Link>
+          )}
         </div>
         {/* Hamburger Menu Icon (visible on small screens) */}
         <button
@@ -123,18 +137,33 @@ export default function NavBar() {
                   Portfolio
                 </motion.span>
               </Link>
-              <Link
-                href="/profile"
-                className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
-                onClick={closeMenu}
-              >
-                <motion.span
-                  whileHover={{ scale: 1.1, color: "#a5b4fc" }} // Indigo-300
-                  transition={{ type: "spring", stiffness: 300 }}
+              {user ? (
+                <Link
+                  href="/profile"
+                  className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
+                  onClick={closeMenu}
                 >
-                  Profile
-                </motion.span>
-              </Link>
+                  <motion.span
+                    whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Profile
+                  </motion.span>
+                </Link>
+              ) : (
+                <Link
+                  href="/signup"
+                  className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
+                  onClick={closeMenu}
+                >
+                  <motion.span
+                    whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Sign Up
+                  </motion.span>
+                </Link>
+              )}
             </div>
           </motion.div>
         )}
