@@ -79,7 +79,7 @@ export default function Login() {
                   </Link>
                   </div>
                   <div className="flex flex-col justify-center mt-8">
-                    <p className="text-gray-400 text-[10px] font-mono">"I know my <span className="underline decoration-2 decoration-blue-500">rights</span>, I watch People's Court." - Alf</p>
+                    <p className="text-gray-400 text-[10px] font-mono">&quot;I know my <span className="underline decoration-2 decoration-blue-500">rights</span>, I watch People&apos;s Court.&quot; - Alf</p>
 
                   </div>
               </form>
