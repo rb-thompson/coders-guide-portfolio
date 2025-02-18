@@ -6,12 +6,14 @@ type User = {
   email: string;
   name: string;
   image?: string;
+  password?: string;
 };
 
 type UserContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
-  logout: () => void; // Add logout function
+  login: (email: string, password: string) => void;
+  logout: () => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -25,8 +27,9 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  // Check if we're in a browser environment before accessing localStorage
   const [user, setUserState] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') { // Check if we're in a browser environment
+    if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('user');
       return storedUser ? JSON.parse(storedUser) : null;
     }
@@ -35,33 +38,43 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const setUser = (newUser: User | null) => {
     setUserState(newUser);
-    if (newUser && typeof window !== 'undefined') { // Again, check for browser environment
-      localStorage.setItem('user', JSON.stringify(newUser));
+    if (newUser && typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify({ ...newUser, password: undefined }));
     } else if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
     }
   };
 
-  // Logout function
+  const login = (email: string, password: string) => {
+    if (typeof window !== 'undefined') {
+      const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+      if (storedUser.email === email && storedUser.password === password) {
+        setUser({ email, name: storedUser.name, image: storedUser.image });
+      } else {
+        console.error('Login failed');
+      }
+    }
+  };
+
   const logout = () => {
     setUser(null);
   };
 
   useEffect(() => {
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'user') {
-        setUserState(e.newValue ? JSON.parse(e.newValue) : null);
-      }
-    };
-
     if (typeof window !== 'undefined') {
+      const handleStorageChange = (e: StorageEvent) => {
+        if (e.key === 'user') {
+          setUserState(e.newValue ? JSON.parse(e.newValue) : null);
+        }
+      };
+
       window.addEventListener('storage', handleStorageChange);
       return () => window.removeEventListener('storage', handleStorageChange);
     }
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </UserContext.Provider>
   );

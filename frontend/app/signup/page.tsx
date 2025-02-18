@@ -25,7 +25,7 @@ export default function Signup() {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
       setUser({ email, name, image: undefined });
-      router.push('/');
+      router.push('/quests');
     } else {
       setErrors(validationErrors);
     }
@@ -33,14 +33,14 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 to-blue-950 text-gray-200">
-      <form onSubmit={handleSignup} className="bg-black/80 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">Let&apos;s get you in the program.</h2>
+      <form onSubmit={handleSignup} className="bg-black/80 p-8 m-1 rounded-lg shadow-lg max-w-md">
+        <h2 className="text-2xl font-normal mb-4 text-center">Let&apos;s get you in the system.</h2>
         <p className="text-blue-600 text-center pb-4">
             Portfolio projects can be cumbersome. <br />This exercise <span className="text-gray-300 font-extralight">makes it fun.</span> 
             
             </p>
         <div className="mb-4">
-        <label className="block mb-2 text-sm font-bold" htmlFor="name">Name</label>
+        <label className="block mb-2 text-sm font-normal" htmlFor="name">Name</label>
           <input
             type="text"
             id="name"
@@ -53,7 +53,7 @@ export default function Signup() {
           {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold" htmlFor="email">Email</label>
+          <label className="block mb-2 text-sm font-normal" htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -66,7 +66,7 @@ export default function Signup() {
           {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
         </div>
         <div className="mb-6">
-          <label className="block mb-2 text-sm font-bold" htmlFor="password">Password</label>
+          <label className="block mb-2 text-sm font-normal" htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -81,9 +81,9 @@ export default function Signup() {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            className=" text-blue-600 hover:text-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-2xl"
+            className=" bg-blue-500 hover:bg-blue-700 font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-xl"
           >
-            Let&apos;s begin! →
+            Almost There →
           </button>
         </div>
       </form>

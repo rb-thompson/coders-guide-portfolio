@@ -66,6 +66,15 @@ export default function NavBar() {
             </button>
           </>
           ) : (
+            <>
+            <Link href="/login" className="hover:text-indigo-300 transition-colors">
+              <motion.span
+                whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                Log In
+              </motion.span>
+            </Link>
             <Link href="/signup" className="hover:text-indigo-300 transition-colors">
               <motion.span
                 whileHover={{ scale: 1.1, color: "#a5b4fc" }}
@@ -74,6 +83,7 @@ export default function NavBar() {
                 Sign Up
               </motion.span>
             </Link>
+          </>
           )}
         </div>
         {/* Hamburger Menu Icon (visible on small screens) */}
@@ -174,8 +184,20 @@ export default function NavBar() {
                 </button>
               </>
               ) : (
-                <Link
-                  href="/signup"
+                <>
+                <Link 
+                  href="/login" 
+                  className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
+                  onClick={closeMenu}
+                >
+                  <motion.span
+                    whileHover={{ scale: 1.1, color: "#a5b4fc" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Log In
+                  </motion.span>
+                </Link>
+                <Link href="/signup" 
                   className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
                   onClick={closeMenu}
                 >
@@ -186,6 +208,7 @@ export default function NavBar() {
                     Sign Up
                   </motion.span>
                 </Link>
+              </>
               )}
             </div>
           </motion.div>
