@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 
 const chapters = [
   { id: 1, title: 'Getting Started', description: 'Learn the basics while you complete your first quest.', action: 'First Things First' },
