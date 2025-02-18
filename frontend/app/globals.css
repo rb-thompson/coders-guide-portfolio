@@ -20,4 +20,46 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+}
 
+.slider {
+  width: 10px;
+  height: 100px;
+  background-color: #a5b4fc; /* Indigo-300 from Tailwind */
+  border-radius: 5px;
+}
+
+.slider-1 {
+  animation: slide .5s ease-in-out infinite alternate;
+  animation-delay: 0s;
+}
+
+.slider-2 {
+  animation: slide .7s ease-in-out infinite alternate;
+  animation-delay: 0s;
+}
+
+.slider-3 {
+  animation: slide .9s ease-in-out infinite alternate;
+  animation-delay: 0s;
+}
+
+@keyframes slide {
+  0% {
+    transform: scaleY(0.2);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
