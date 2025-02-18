@@ -13,7 +13,7 @@ export default function Signup() {
   const router = useRouter();
 
   const validateForm = () => {
-    let errors: { name?: string; email?: string; password?: string } = {};
+    const errors: { name?: string; email?: string; password?: string } = {};
     if (!name.trim()) errors.name = "Name is required";
     if (!email.match(/^\S+@\S+\.\S+$/)) errors.email = "Please enter a valid email";
     if (password.length < 6) errors.password = "Password must be at least 6 characters";
@@ -34,7 +34,7 @@ export default function Signup() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 to-blue-950 text-gray-200">
       <form onSubmit={handleSignup} className="bg-black/80 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">Let's get you in the program.</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Let&apos;s get you in the program.</h2>
         <p className="text-blue-600 text-center pb-4">
             Portfolio projects can be cumbersome. <br />This exercise <span className="text-gray-300 font-extralight">makes it fun.</span> 
             
@@ -83,7 +83,7 @@ export default function Signup() {
             type="submit"
             className=" text-blue-600 hover:text-blue-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full text-2xl"
           >
-            Let's begin! →
+            Let&apos;s begin! →
           </button>
         </div>
       </form>

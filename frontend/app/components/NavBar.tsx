@@ -17,7 +17,7 @@ export default function NavBar() {
     <div>
       <nav className="bg-black/80 text-gray-200 p-4 flex justify-between items-center sticky top-0 z-20 font-light">
         <Link href="/" className="text-sm">
-          <span className="block font-light">The Coder's Guide</span>
+          <span className="block font-light">The Coder&apos;s Guide</span>
           <span className="block text-center">To Portfolio Projects</span>
         </Link>
         {/* Desktop Links */}
