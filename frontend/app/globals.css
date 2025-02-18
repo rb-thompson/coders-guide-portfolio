@@ -23,7 +23,7 @@ body {
 /* app/globals.css */
 
 .loading-spinner {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -34,7 +34,7 @@ body {
   width: 100px;
   height: 100px;
   opacity: 0;
-  animation: fadeInOut 1s ease-in-out;
+  animation: fadeInOut 2s ease-in-out forwards;
 }
 
 .slider {
