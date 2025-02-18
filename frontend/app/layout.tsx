@@ -3,6 +3,7 @@ import { DM_Serif_Text } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import { UserProvider } from './contexts/UserContext';
+import PageTransition from './components/PageTransition';
 
 const dmserif = DM_Serif_Text({ 
   weight: '400',
@@ -24,8 +25,10 @@ export default function RootLayout({
         <UserProvider>
           {/* Navigation Bar */}
           <NavBar />
-          {/* Main Content */}
-          <main>{children}</main>
+          <PageTransition>
+            {/* Main Content */}
+            <main>{children}</main>
+          </PageTransition>
         </UserProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useUser } from '../contexts/UserContext';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -33,6 +34,12 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-950 to-blue-950 text-gray-200">
+      <motion.div
+            className="relative z-10 text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: .5 }}
+      >
       <form onSubmit={handleSignup} className="bg-black/80 p-8 m-1 rounded-lg shadow-lg max-w-md">
         <h2 className="text-2xl font-normal mb-4 text-center">Let&apos;s get you in the system.</h2>
         <p className="text-blue-600 text-center pb-4">
@@ -87,6 +94,7 @@ export default function Signup() {
           </button>
         </div>
       </form>
+      </motion.div>
     </div>
   );
 }

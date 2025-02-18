@@ -20,6 +20,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* app/globals.css */
+
 .loading-spinner {
   position: fixed;
   top: 50%;
@@ -31,28 +33,29 @@ body {
   align-items: center;
   width: 100px;
   height: 100px;
+  opacity: 0;
+  animation: fadeInOut 1s ease-in-out;
 }
 
 .slider {
   width: 10px;
   height: 100px;
-  background-color: #a5b4fc; /* Indigo-300 from Tailwind */
+  background-color: #a5b4fc;
   border-radius: 5px;
 }
 
 .slider-1 {
-  animation: slide .5s ease-in-out infinite alternate;
-  animation-delay: 0s;
+  animation: slide 2s ease-in-out infinite alternate;
 }
 
 .slider-2 {
-  animation: slide .7s ease-in-out infinite alternate;
-  animation-delay: 0s;
+  animation: slide 1.8s ease-in-out infinite alternate;
+  animation-delay: 0.2s;
 }
 
 .slider-3 {
-  animation: slide .9s ease-in-out infinite alternate;
-  animation-delay: 0s;
+  animation: slide 2.2s ease-in-out infinite alternate;
+  animation-delay: 0.4s;
 }
 
 @keyframes slide {
@@ -62,4 +65,11 @@ body {
   100% {
     transform: scaleY(1);
   }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }

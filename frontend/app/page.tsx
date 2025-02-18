@@ -88,7 +88,7 @@ export default function Home() {
       {/* Guidebook Content */}
       <motion.div
         className="relative z-10 text-center"
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: .5, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
