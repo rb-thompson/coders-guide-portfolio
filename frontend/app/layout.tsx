@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Serif_Text } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 
-const inter = Inter({ subsets: ["latin"] });
+const dmserif = DM_Serif_Text({ 
+  weight: '400',
+  subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "The Coder's Guide to the Portfolio Project",
@@ -17,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={dmserif.className}>
         {/* Navigation Bar */}
         <NavBar />
         {/* Main Content */}
