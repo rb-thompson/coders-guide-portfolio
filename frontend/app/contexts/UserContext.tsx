@@ -26,15 +26,18 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUserState] = useState<User | null>(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
+    if (typeof window !== 'undefined') { // Check if we're in a browser environment
+      const storedUser = localStorage.getItem('user');
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+    return null;
   });
 
   const setUser = (newUser: User | null) => {
     setUserState(newUser);
-    if (newUser) {
+    if (newUser && typeof window !== 'undefined') { // Again, check for browser environment
       localStorage.setItem('user', JSON.stringify(newUser));
-    } else {
+    } else if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
     }
   };
@@ -44,7 +47,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  // Sync local storage with state on change (in case of multi-tab usage)
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'user') {
@@ -52,8 +54,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', handleStorageChange);
+      return () => window.removeEventListener('storage', handleStorageChange);
+    }
   }, []);
 
   return (
