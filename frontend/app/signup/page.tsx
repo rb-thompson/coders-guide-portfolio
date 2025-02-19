@@ -26,7 +26,8 @@ export default function Signup() {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      setUser({ email, name, image: undefined });
+      console.log('Signing up with:', { email, name, password }); // Debug signup data
+      setUser({ email, name, password, image: undefined });
       router.push('/quests');
     } else {
       setErrors(validationErrors);

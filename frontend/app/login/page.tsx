@@ -8,23 +8,18 @@ import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
-  const { setUser } = useUser();
+  const { login } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Call an API here to authenticate
-    // For now, we'll simulate with local storage
-    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-    
-    if (storedUser.email === email && storedUser.password === password) {
-      setUser({ email, name: storedUser.name, image: storedUser.image });
-      router.push('/quests'); // Redirect to quests page after login
+    const success = login(email, password);
+    if (success) {
+      router.push('/');
     } else {
-      setError('Invalid email or password');
+      setError('Incorrect email or password');
     }
   };
 

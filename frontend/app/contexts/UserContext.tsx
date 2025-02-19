@@ -12,7 +12,7 @@ type User = {
 type UserContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
-  login: (email: string, password: string) => void;
+  login: (email: string, password: string) => boolean;
   logout: () => void;
 };
 
@@ -27,47 +27,58 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  // Check if we're in a browser environment before accessing localStorage
   const [user, setUserState] = useState<User | null>(() => {
     if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('user');
+      const storedUser = localStorage.getItem('currentUser');
       return storedUser ? JSON.parse(storedUser) : null;
     }
     return null;
   });
 
   const setUser = (newUser: User | null) => {
+    console.log('Setting user:', newUser);
     setUserState(newUser);
     if (newUser && typeof window !== 'undefined') {
-      localStorage.setItem('user', JSON.stringify({ ...newUser, password: undefined }));
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+      // Store auth data separately and only on signup
+      if (newUser.password) {
+        localStorage.setItem('authUser', JSON.stringify(newUser));
+      }
     } else if (typeof window !== 'undefined') {
-      localStorage.removeItem('user');
+      localStorage.removeItem('currentUser'); // Only clear current user, not auth data
     }
   };
 
-  const login = (email: string, password: string) => {
+  const login = (email: string, password: string): boolean => {
     if (typeof window !== 'undefined') {
-      const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-      if (storedUser.email === email && storedUser.password === password) {
-        setUser({ email, name: storedUser.name, image: storedUser.image });
-      } else {
-        console.error('Login failed');
+      const storedAuthUser = JSON.parse(localStorage.getItem('authUser') || '{}');
+      console.log('Login attempt - Entered:', { email, password });
+      console.log('Stored auth user:', storedAuthUser);
+      if (storedAuthUser.email === email && storedAuthUser.password === password) {
+        setUser({ email, name: storedAuthUser.name, image: storedAuthUser.image });
+        console.log('Login successful');
+        return true;
       }
+      console.log('Login failed - Credentials mismatch');
+      return false;
     }
+    console.log('Login failed - Not in browser');
+    return false;
   };
 
   const logout = () => {
+    console.log('Logging out');
     setUser(null);
   };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const handleStorageChange = (e: StorageEvent) => {
-        if (e.key === 'user') {
+        if (e.key === 'currentUser') {
+          console.log('Current user storage changed:', e.newValue);
           setUserState(e.newValue ? JSON.parse(e.newValue) : null);
         }
       };
-
       window.addEventListener('storage', handleStorageChange);
       return () => window.removeEventListener('storage', handleStorageChange);
     }
