@@ -92,7 +92,7 @@ export default function Home() {
           transition={{ duration: 1 }}
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
-            It's portfolios all the way down, partner!
+            It&apos;s portfolios all the way down, partner!
           </h1>
           <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
