@@ -11,7 +11,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const { setUser } = useUser();
+  const { signup } = useUser();
   const router = useRouter();
 
   const validateForm = () => {
@@ -26,9 +26,13 @@ export default function Signup() {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      console.log('Signing up with:', { email, name, password }); // Debug signup data
-      setUser({ email, name, password, image: undefined });
-      router.push('/quests');
+      console.log('Signing up with:', { email, name, password });
+      const success = signup(email, name, password);
+      if (success) {
+        router.push('/quests');
+      } else {
+        setErrors({ email: "Email already exists" });
+      }
     } else {
       setErrors(validationErrors);
     }

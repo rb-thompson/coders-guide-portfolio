@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 type User = {
   email: string;
@@ -14,6 +15,7 @@ type UserContextType = {
   setUser: (user: User | null) => void;
   login: (email: string, password: string) => boolean;
   logout: () => void;
+  signup: (email: string, name: string, password: string) => boolean; // New signup function
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
   const [user, setUserState] = useState<User | null>(() => {
     if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('currentUser');
@@ -40,22 +43,37 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUserState(newUser);
     if (newUser && typeof window !== 'undefined') {
       localStorage.setItem('currentUser', JSON.stringify(newUser));
-      // Store auth data separately and only on signup
-      if (newUser.password) {
-        localStorage.setItem('authUser', JSON.stringify(newUser));
-      }
     } else if (typeof window !== 'undefined') {
-      localStorage.removeItem('currentUser'); // Only clear current user, not auth data
+      localStorage.removeItem('currentUser'); // Clear current user
     }
+  };
+
+  const signup = (email: string, name: string, password: string): boolean => {
+    if (typeof window !== 'undefined') {
+      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
+      console.log('Current stored users:', storedUsers);
+      if (storedUsers.some(u => u.email === email)) {
+        console.log('Signup failed - Email already exists');
+        return false; // Email already exists
+      }
+      const newUser = { email, name, password, image: undefined };
+      const updatedUsers = [...storedUsers, newUser];
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+      console.log('Stored in localStorage (users):', localStorage.getItem('users'));
+      setUser(newUser); // Log in the new user immediately
+      return true;
+    }
+    return false;
   };
 
   const login = (email: string, password: string): boolean => {
     if (typeof window !== 'undefined') {
-      const storedAuthUser = JSON.parse(localStorage.getItem('authUser') || '{}');
+      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       console.log('Login attempt - Entered:', { email, password });
-      console.log('Stored auth user:', storedAuthUser);
-      if (storedAuthUser.email === email && storedAuthUser.password === password) {
-        setUser({ email, name: storedAuthUser.name, image: storedAuthUser.image });
+      console.log('Stored users:', storedUsers);
+      const foundUser = storedUsers.find(u => u.email === email && u.password === password);
+      if (foundUser) {
+        setUser({ email, name: foundUser.name, image: foundUser.image });
         console.log('Login successful');
         return true;
       }
@@ -69,6 +87,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     console.log('Logging out');
     setUser(null);
+    router.push('/'); // Redirect to homepage
   };
 
   useEffect(() => {
@@ -82,10 +101,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       window.addEventListener('storage', handleStorageChange);
       return () => window.removeEventListener('storage', handleStorageChange);
     }
-  }, []);
+  }, [router]); // Add router to dependencies
 
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout }}>
+    <UserContext.Provider value={{ user, setUser, login, logout, signup }}>
       {children}
     </UserContext.Provider>
   );
