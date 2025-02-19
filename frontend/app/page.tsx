@@ -97,38 +97,26 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
           </p>
-          <div className="flex justify-center items-center space-x-6 text-gray-100 font-mono bg-black/20 w-60 m-auto p-1 rounded-lg">
+          <div className="flex justify-center items-center space-x-4 font-mono bg-black/20 w-60 m-auto p-3 rounded-lg">
           {user ? (
             <>
               <Link href="/chapters" className="text-indigo-300">
-                <motion.div
-                  className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors"
-                  whileHover={{ color: "#818cf8" }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+                <span className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors">
                   Continue Adventure
-                </motion.div>
+                </span>
               </Link>
             </>
           ) : (
             <>
               <Link href="/login">
-                <motion.div
-                  className="text-lg tracking-wider font-normal transition-colors"
-                  whileHover={{ color: "#818cf8" }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+              <span className="text-white text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
                   Log In
-                </motion.div>
+                </span>
               </Link>
-              <Link href="/signup" className="text-indigo-300">
-                <motion.div
-                  className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors"
-                  whileHover={{ color: "#818cf8" }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+              <Link href="/signup">
+              <span className="text-white text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
                   Sign Up
-                </motion.div>
+                </span>
               </Link>
             </>
           )}
