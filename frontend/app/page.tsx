@@ -134,7 +134,7 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
-      <article className="grid grid-cols-1 md:grid-cols-4 justify-center gap-4 px-16 md:px-24 py-8">
+      <article className="grid grid-cols-1 md:grid-cols-4 justify-center gap-4 px-8 md:px-24 py-4">
             <section className="bg-black/80 p-4 rounded-lg shadow-md text-xl">
               <div className="flex justify-between align-middle">
                 <h2 className="mb-2 font-mono">Sign Up</h2>

@@ -32,21 +32,17 @@ export const useUser = () => {
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const [user, setUserState] = useState<User | null>(() => {
-    if (typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('currentUser');
-      return storedUser ? JSON.parse(storedUser) : null;
-    }
-    return null;
-  });
+  const [user, setUserState] = useState<User | null>(null); // Always null initially
 
   const setUser = (newUser: User | null) => {
     console.log('Setting user:', newUser);
     setUserState(newUser);
     if (newUser && typeof window !== 'undefined') {
       localStorage.setItem('currentUser', JSON.stringify(newUser));
+      console.log('Stored in localStorage (currentUser):', localStorage.getItem('currentUser'));
     } else if (typeof window !== 'undefined') {
-      localStorage.removeItem('currentUser'); // Clear current user
+      localStorage.removeItem('currentUser');
+      console.log('Cleared localStorage (currentUser):', localStorage.getItem('currentUser'));
     }
   };
 
@@ -111,6 +107,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       }
     }
   };
+
+  // Load user from localStorage only on client-side mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('currentUser');
+      console.log('Client-side load from localStorage (currentUser):', storedUser);
+      if (storedUser) {
+        setUserState(JSON.parse(storedUser));
+      }
+    }
+  }, []); // Empty dependency array = run once on mount
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

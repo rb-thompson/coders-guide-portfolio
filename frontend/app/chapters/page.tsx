@@ -53,7 +53,7 @@ export default function Chapters() {
                 <div>
                   <div className="grid grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
                     <span className="text-2xl font-normal text-blue-500">{chapter.title}</span>
-                    <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 text-lg font-normal">
+                    <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
                       Chapter {chapter.id}
                     </span>
                   </div>

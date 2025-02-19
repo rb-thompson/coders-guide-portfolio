@@ -29,14 +29,14 @@ export default function ChapterDetail({ params }: { params: Promise<{ id: string
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-start p-6">
       <motion.div
-        className="w-5/6 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg font-mono"
+        className="w-8/10 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg font-mono"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="grid grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
           <h1 className="text-2xl md:text-3xl font-normal text-blue-500">{chapter.title}</h1>
-          <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 text-lg font-normal">
+          <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
             Chapter {chapter.id}
           </span>
         </div>
