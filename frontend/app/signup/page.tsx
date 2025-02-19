@@ -29,7 +29,7 @@ export default function Signup() {
       console.log('Signing up with:', { email, name, password });
       const success = signup(email, name, password);
       if (success) {
-        router.push('/quests');
+        router.push('/chapters');
       } else {
         setErrors({ email: "Email already exists" });
       }

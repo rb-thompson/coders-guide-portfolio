@@ -21,10 +21,6 @@ export default function Home() {
     });
   }, []);
 
-  const particlesLoaded = useCallback(async (container?: Container): Promise<void> => {
-    console.log("Particles loaded:", container);
-  }, []);
-
   // Particle configuration for a cosmic starfield (static, no hover effect)
   const options: ISourceOptions = useMemo(
     () => ({
@@ -83,7 +79,6 @@ export default function Home() {
           <Particles
             id="tsparticles"
             options={options}
-            particlesLoaded={particlesLoaded}
             className="absolute inset-0 z-0"
           />
         )}

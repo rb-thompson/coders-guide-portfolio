@@ -8,6 +8,7 @@ type User = {
   name: string;
   image?: string;
   password?: string;
+  completedQuests?: string[];
 };
 
 type UserContextType = {
@@ -15,7 +16,8 @@ type UserContextType = {
   setUser: (user: User | null) => void;
   login: (email: string, password: string) => boolean;
   logout: () => void;
-  signup: (email: string, name: string, password: string) => boolean; // New signup function
+  signup: (email: string, name: string, password: string) => boolean;
+  completeQuest: (chapterId: number, questId: number) => void; 
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -54,13 +56,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.log('Current stored users:', storedUsers);
       if (storedUsers.some(u => u.email === email)) {
         console.log('Signup failed - Email already exists');
-        return false; // Email already exists
+        return false;
       }
-      const newUser = { email, name, password, image: undefined };
+      const newUser = { email, name, password, image: undefined, completedQuests: [] }; // Initialize empty completedQuests
       const updatedUsers = [...storedUsers, newUser];
       localStorage.setItem('users', JSON.stringify(updatedUsers));
-      console.log('Stored in localStorage (users):', localStorage.getItem('users'));
-      setUser(newUser); // Log in the new user immediately
+      setUser(newUser);
       return true;
     }
     return false;
@@ -73,7 +74,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.log('Stored users:', storedUsers);
       const foundUser = storedUsers.find(u => u.email === email && u.password === password);
       if (foundUser) {
-        setUser({ email, name: foundUser.name, image: foundUser.image });
+        setUser({ ...foundUser, completedQuests: foundUser.completedQuests || [] });
         console.log('Login successful');
         return true;
       }
@@ -90,6 +91,27 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     router.push('/'); // Redirect to homepage
   };
 
+  const completeQuest = (chapterId: number, questId: number) => {
+    if (user && typeof window !== 'undefined') {
+      const questKey = `${chapterId}-${questId}`;
+      const updatedCompletedQuests = user.completedQuests ? [...user.completedQuests, questKey] : [questKey];
+      const updatedUser = { ...user, completedQuests: updatedCompletedQuests };
+      
+      // Update currentUser
+      setUser(updatedUser);
+      console.log(`Completed quest ${questKey} for user ${user.email}`);
+
+      // Sync with users array
+      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
+      const userIndex = storedUsers.findIndex(u => u.email === user.email);
+      if (userIndex !== -1) {
+        storedUsers[userIndex] = updatedUser;
+        localStorage.setItem('users', JSON.stringify(storedUsers));
+        console.log('Updated stored users with progress:', localStorage.getItem('users'));
+      }
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const handleStorageChange = (e: StorageEvent) => {
@@ -104,7 +126,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [router]); // Add router to dependencies
 
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout, signup }}>
+    <UserContext.Provider value={{ user, setUser, login, logout, signup, completeQuest }}>
       {children}
     </UserContext.Provider>
   );
