@@ -22,43 +22,23 @@ export default function NavBar() {
         </Link>
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-4">
-          <Link href="/" className="hover:text-indigo-300 transition-colors">
-            <motion.span
-                whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-                transition={{ type: "spring", stiffness: 300 }}
-            >
-              Home
-            </motion.span>
+          <Link href="/" className="hover:text-indigo-500 transition-colors">
+            Home
           </Link>
-          <Link href="/chapters" className="hover:text-indigo-300 transition-colors">
-            <motion.span
-              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              Chapters
-            </motion.span>
+          <Link href="/chapters" className="hover:text-indigo-500 transition-colors">
+            Chapters
           </Link>
-          <Link href="/portfolio" className="hover:text-indigo-300 transition-colors">
-            <motion.span
-              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              Portfolio
-            </motion.span>
+          <Link href="/portfolio" className="hover:text-indigo-500 transition-colors">
+            Portfolio
           </Link>
           {user ? (
             <>
-            <Link href="/profile" className="hover:text-indigo-300 transition-colors">
-              <motion.span
-              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-              transition={{ type: "spring", stiffness: 300 }}
-              >
-                Profile
-              </motion.span>
+            <Link href="/profile" className="hover:text-indigo-500 transition-colors">
+              Profile
             </Link>
             <button
               onClick={logout}
-              className="hover:text-indigo-300 transition-colors focus:outline-none"
+              className="hover:text-indigo-500 transition-colors focus:outline-none"
             >
               <motion.span whileHover={{ scale: 1.1, color: "#a5b4fc" }}>
                 <LogOut size={24} />
@@ -67,21 +47,11 @@ export default function NavBar() {
           </>
           ) : (
             <>
-            <Link href="/login" className="hover:text-indigo-300 transition-colors">
-              <motion.span
-              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-              transition={{ type: "spring", stiffness: 300 }}
-              >
-                Log In
-              </motion.span>
+            <Link href="/login" className="hover:text-indigo-500 transition-colors">
+              Log In
             </Link>
-            <Link href="/signup" className=" hover:text-indigo-300 border border-indigo-600 rounded-md px-3 transition-colors">
-              <motion.span
-              whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
-              transition={{ type: "spring", stiffness: 300 }}
-              >
-                Sign Up
-              </motion.span>
+            <Link href="/signup" className="text-white hover:bg-indigo-500/10 border border-indigo-600 rounded-md px-3 transition-colors duration-500">
+              Sign Up
             </Link>
           </>
           )}
@@ -104,7 +74,7 @@ export default function NavBar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            onClick={closeMenu} // Close menu when clicking outside links
+            onClick={closeMenu} 
           >
             {/* Close Button (X) in top-right corner */}
             <button
@@ -113,8 +83,8 @@ export default function NavBar() {
               aria-label="Close Menu"
             >
               <motion.div
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                whileHover={{ color: "#818cf8" }} 
+                transition={{ type: "spring", stiffness: 300 }}
               >
                 <X size={32} />
               </motion.div>
@@ -127,8 +97,8 @@ export default function NavBar() {
                 onClick={closeMenu}
               >
                 <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                whileHover={{ color: "#818cf8" }} 
+                transition={{ type: "spring", stiffness: 300 }}
                 >
                   Home
                 </motion.span>
@@ -139,8 +109,8 @@ export default function NavBar() {
                 onClick={closeMenu}
               >
                 <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                whileHover={{ color: "#818cf8" }} 
+                transition={{ type: "spring", stiffness: 300 }}
                 >
                   Chapters
                 </motion.span>
@@ -151,8 +121,8 @@ export default function NavBar() {
                 onClick={closeMenu}
               >
                 <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                  whileHover={{ color: "#818cf8" }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   Portfolio
                 </motion.span>
@@ -165,8 +135,8 @@ export default function NavBar() {
                   onClick={closeMenu}
                 >
                   <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                    whileHover={{ color: "#818cf8" }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     Profile
                   </motion.span>
@@ -176,8 +146,8 @@ export default function NavBar() {
                   className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
                 >
                   <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                    whileHover={{ color: "#818cf8" }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     Logout
                   </motion.span>
@@ -191,19 +161,19 @@ export default function NavBar() {
                   onClick={closeMenu}
                 >
                   <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                    whileHover={{ color: "#818cf8" }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     Log In
                   </motion.span>
                 </Link>
                 <Link href="/signup" 
-                  className="text-2xl font-semibold mb-6 border-b border-indigo-500 hover:text-indigo-300 transition-colors block"
+                  className="text-2xl font-semibold mb-6 border-b-2 border-indigo-500 hover:text-indigo-500 transition-colors block"
                   onClick={closeMenu}
                 >
                   <motion.span
-                    whileHover={{ color: "#a5b4fc" }}
-                    transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
+                    whileHover={{ color: "#818cf8" }} 
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     Sign Up
                   </motion.span>
