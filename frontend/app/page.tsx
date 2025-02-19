@@ -1,12 +1,13 @@
-"use client"; // Mark this as a client component for interactivity
+"use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { loadAll } from "@tsparticles/all";
 import { useUser } from './contexts/UserContext';
+
 
 export default function Home() {
   const [init, setInit] = useState(false);
@@ -91,7 +92,7 @@ export default function Home() {
           transition={{ duration: 1 }}
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
-            Welcome to the Data Galaxy, Coder!
+            It's portfolios all the way down, partner!
           </h1>
           <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
