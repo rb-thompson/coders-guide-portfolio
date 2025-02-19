@@ -6,9 +6,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, ISourceOptions } from "@tsparticles/engine";
 import { loadAll } from "@tsparticles/all";
+import { useUser } from './contexts/UserContext';
 
 export default function Home() {
   const [init, setInit] = useState(false);
+  const { user } = useUser();
 
   // Initialize the tsParticles engine
   useEffect(() => {
@@ -93,31 +95,47 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-3xl md:text-6xl font-bold mb-4">
+          <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
             Welcome to the Data Galaxy, Coder!
           </h1>
-          <p className="text-lg md:text-xl mb-8">
+          <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your guidebook and start your journey!
           </p>
           <div className="flex justify-center items-center space-x-6 text-gray-100 font-mono bg-black/20 w-60 m-auto p-1 rounded-lg">
-            <Link href="/login">
-              <motion.div
-                className="text-lg tracking-wider font-normal transition-colors"
-                whileHover={{ color: "#818cf8", scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                Log In
-              </motion.div>
-            </Link>
-            <Link href="/signup">
-              <motion.div
-                className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors"
-                whileHover={{ color: "#818cf8", scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                Sign Up
-              </motion.div>
-            </Link>
+          {user ? (
+            <>
+              <Link href="/chapters" className="text-indigo-300">
+                <motion.div
+                  className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors"
+                  whileHover={{ color: "#818cf8" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  Continue Adventure
+                </motion.div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/login">
+                <motion.div
+                  className="text-lg tracking-wider font-normal transition-colors"
+                  whileHover={{ color: "#818cf8" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  Log In
+                </motion.div>
+              </Link>
+              <Link href="/signup" className="text-indigo-300">
+                <motion.div
+                  className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors"
+                  whileHover={{ color: "#818cf8" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  Sign Up
+                </motion.div>
+              </Link>
+            </>
+          )}
           </div>
         </motion.div>
       </div>

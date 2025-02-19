@@ -30,12 +30,12 @@ export default function NavBar() {
               Home
             </motion.span>
           </Link>
-          <Link href="/quests" className="hover:text-indigo-300 transition-colors">
+          <Link href="/chapters" className="hover:text-indigo-300 transition-colors">
             <motion.span
               whileHover={{ color: "#818cf8" }} // Matches text-indigo-400
               transition={{ type: "spring", stiffness: 300 }}
             >
-              Quests
+              Chapters
             </motion.span>
           </Link>
           <Link href="/portfolio" className="hover:text-indigo-300 transition-colors">
@@ -134,7 +134,7 @@ export default function NavBar() {
                 </motion.span>
               </Link>
               <Link
-                href="/quests"
+                href="/chapters"
                 className="text-2xl font-semibold mb-6 hover:text-indigo-300 transition-colors block"
                 onClick={closeMenu}
               >
@@ -142,7 +142,7 @@ export default function NavBar() {
                     whileHover={{ color: "#a5b4fc" }}
                     transition={{ type: "tween", duration: 0.5, ease: "easeInOut" }}
                 >
-                  Quests
+                  Chapters
                 </motion.span>
               </Link>
               <Link

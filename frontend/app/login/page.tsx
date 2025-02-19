@@ -17,7 +17,7 @@ export default function Login() {
     e.preventDefault();
     const success = login(email, password);
     if (success) {
-      router.push('/quests');
+      router.push('/chapters');
     } else {
       setError('Incorrect email or password');
     }
