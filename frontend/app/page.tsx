@@ -109,12 +109,12 @@ export default function Home() {
           ) : (
             <>
               <Link href="/login">
-                <span className="block text-white text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
+                <span className="text-white text-lg md:text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
                     Log In
                 </span>
               </Link>
               <Link href="/signup">
-                <span className="block text-white text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
+                <span className="text-white text-lg md:text-xl font-normal hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent rounded-md px-3 py-1 transition-colors duration-500">
                     Sign Up
                 </span>
               </Link>
