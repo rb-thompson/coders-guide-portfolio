@@ -58,7 +58,12 @@ export default function ChapterDetail({ params }: { params: Promise<{ id: string
               </div>
               {!user ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
-                  <span className="text-gray-400 font-semibold">Locked - Please Log In</span>
+                  <span className="text-gray-400 font-semibold">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+
+                  </span>
                 </div>
               ) : !isQuestCompleted(quest.id) && (
                 <motion.button
@@ -76,6 +81,13 @@ export default function ChapterDetail({ params }: { params: Promise<{ id: string
             </div>
           ))}
         </div>
+        {!user ? (
+          <p className='text-neutral-500 text-center'>
+            <a href="/login" className='text-indigo-400'>Log in</a> or <a href="/signup" className='text-indigo-400'>sign up</a> to unlock access.
+          </p>
+        ) : (
+          <p className='text-neutral-500 text-center'><a href="#" className='text-indigo-400'>View badges</a> you've earned.</p>
+        )}
         <motion.button
           className="mt-6 text-gray-300 hover:text-indigo-400 transition-colors font-normal text-lg tracking-wider py-2 px-0 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-start space-x-2"
           whileHover={{ x: 2 }}

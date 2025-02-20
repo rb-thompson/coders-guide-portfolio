@@ -33,9 +33,10 @@ export default function Chapters() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-start p-6">
-      <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center font-mono">
+      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center font-mono">
         Embark on Cosmic Quests
       </h1>
+
       <div className="w-full max-w-3xl">
         <div className="relative">
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full border-l-2 border-indigo-500/50" />

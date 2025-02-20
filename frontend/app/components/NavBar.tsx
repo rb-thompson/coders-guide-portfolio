@@ -64,6 +64,7 @@ export default function NavBar() {
         >
           <Menu size={24} />
         </button>
+        
       </nav>
       {/* Mobile Menu (visible on small screens when open) */}
       <AnimatePresence>
