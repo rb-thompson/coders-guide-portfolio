@@ -97,7 +97,7 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your notepad and start your journey.
           </p>
-          <div className="flex justify-center items-center space-x-4 font-mono bg-black/20 w-60 m-auto p-3 rounded-lg">
+          <div className="flex justify-center items-center space-x-2 font-mono bg-black/20 w-60 m-auto p-2 rounded-lg">
           {user ? (
             <>
               <Link href="/chapters" className="text-indigo-300">
