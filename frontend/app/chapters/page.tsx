@@ -51,11 +51,11 @@ export default function Chapters() {
                 whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)" }} // Card hover feedback
               >
                 <div>
-                  <div className="grid grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
-                    <span className="text-2xl font-normal text-blue-500">{chapter.title}</span>
-                    <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
+                  <div className="grid grid-cols-2 md:grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
+                    <span className="text-lg md:text-2xl font-normal text-blue-500">{chapter.title}</span>
+                    <p className="text-xs md:text-base w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
                       Chapter {chapter.id}
-                    </span>
+                    </p>
                   </div>
                   <p className="text-sm tracking-wide text-gray-400 font-sans">{chapter.description}</p>
                 </div>
@@ -70,13 +70,13 @@ export default function Chapters() {
                     </span>
                   </div>
                 </div>
-                <div className="mt-1 flex items-center justify-start space-x-2">
+                <div className="mt-2 flex items-center justify-start space-x-2">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-gray-300">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
                   </svg>
                   <motion.span
-                    className="text-gray-300 hover:text-indigo-400 transition-colors text-lg tracking-wider font-mono"
+                    className="text-gray-300 hover:text-indigo-400 transition-colors text-base md:text-lg tracking-wider font-mono"
                     whileHover={{ color: "#818cf8" }} // Indigo-400
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
