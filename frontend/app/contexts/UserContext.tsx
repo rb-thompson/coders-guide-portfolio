@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { chapters } from '../chapters/chapters';
 
 type User = {
   email: string;
@@ -9,6 +10,7 @@ type User = {
   image?: string;
   password?: string;
   completedQuests?: string[];
+  badges?: string[]; // Array of badge IDs
 };
 
 type UserContextType = {
@@ -91,11 +93,22 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (user && typeof window !== 'undefined') {
       const questKey = `${chapterId}-${questId}`;
       const updatedCompletedQuests = user.completedQuests ? [...user.completedQuests, questKey] : [questKey];
-      const updatedUser = { ...user, completedQuests: updatedCompletedQuests };
+
+      // Find the badge for this quest (assuming chapters data is imported)
+      const chapter = chapters.find(ch => ch.id === chapterId);
+      const quest = chapter?.quests.find(q => q.id === questId);
+      const badgeId = quest?.badge?.id;
+
+      // Add badge if it exists and isn't already earned
+      const updatedBadges = user.badges
+        ? badgeId && !user.badges.includes(badgeId) ? [...user.badges, badgeId] : user.badges
+        : badgeId ? [badgeId] : [];
+
+      const updatedUser = { ...user, completedQuests: updatedCompletedQuests, badges: updatedBadges };
       
-      // Update currentUser
       setUser(updatedUser);
-      console.log(`Completed quest ${questKey} for user ${user.email}`);
+      console.log(`Completed quest ${questKey} and earned badge ${badgeId} for user ${user.email}`);
+
 
       // Sync with users array
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
