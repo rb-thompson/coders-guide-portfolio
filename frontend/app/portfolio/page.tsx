@@ -53,7 +53,7 @@ export default function Portfolio() {
             return (
               <div
                 key={badge.id}
-                className={`group relative bg-indigo-800/20 border-2 rounded-full flex flex-col items-center justify-center w-full aspect-square max-w-[10rem] sm:max-w-[12rem] transition-all duration-300 ease-in-out ${
+                className={`group relative mx-auto bg-indigo-800/20 border-2 rounded-full flex flex-col items-center justify-center w-full aspect-square max-w-[10rem] sm:max-w-[12rem] transition-all duration-300 ease-in-out ${
                   isEarned
                     ? "border-indigo-500 hover:scale-105 hover:border-pink-500 cursor-pointer"
                     : "border-gray-700 opacity-60"
