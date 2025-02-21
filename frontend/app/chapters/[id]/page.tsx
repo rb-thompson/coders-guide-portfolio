@@ -86,7 +86,7 @@ export default function ChapterDetail({ params }: { params: Promise<{ id: string
             <a href="/login" className='text-indigo-400'>Log in</a> or <a href="/signup" className='text-indigo-400'>sign up</a> to unlock access.
           </p>
         ) : (
-          <p className='text-neutral-500 text-center'><a href="#" className='text-indigo-400'>View badges</a> you&apos;ve earned.</p>
+          <p className='text-neutral-500 text-center'><a href="/portfolio" className='text-indigo-400'>View badges</a> you&apos;ve earned.</p>
         )}
         <motion.button
           className="mt-6 text-gray-300 hover:text-indigo-400 transition-colors font-normal text-lg tracking-wider py-2 px-0 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-start space-x-2"
