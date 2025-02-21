@@ -97,11 +97,11 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-8 px-2">
             Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your notepad and start your journey.
           </p>
-          <div className="flex justify-center items-center space-x-2 font-mono bg-black/20 w-60 m-auto p-2 rounded-lg">
+          <div className="flex justify-center items-center space-x-2 font-mono bg-black/20 w-64 m-auto p-2 rounded-lg">
           {user ? (
             <>
               <Link href="/chapters" className="text-indigo-300">
-                <span className="text-lg tracking-wider font-normal border-2 border-indigo-500 px-2 py-1 rounded-lg outline-offset-2 transition-colors">
+                <span className="text-lg tracking-wider font-normal text-white hover:bg-indigo-600/70 border-2 border-indigo-600 hover:border-transparent px-2 py-1 rounded-lg outline-offset-2 transition-colors">
                   Continue Adventure
                 </span>
               </Link>
