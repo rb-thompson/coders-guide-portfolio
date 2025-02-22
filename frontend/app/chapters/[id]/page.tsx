@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useUser } from "@/contexts/UserContext";
@@ -8,8 +8,11 @@ import { chapters } from "@/chapters/chapters";
 
 export default function ChapterDetail() {
   const router = useRouter();
+  const { id } = useParams(); // Get dynamic route param
   const { user, setCurrentQuest } = useUser();
-  const chapter = chapters.find((ch) => ch.id === 1); // Default to Chapter 1 for now; adjust as needed
+
+  const chapterId = parseInt(id as string || "1", 10); // Fallback to 1 if undefined
+  const chapter = chapters.find((ch) => ch.id === chapterId);
 
   if (!chapter) {
     return (
@@ -18,8 +21,6 @@ export default function ChapterDetail() {
       </div>
     );
   }
-
-  const chapterId = chapter.id; // Use chapter ID from context or default
 
   const isQuestCompleted = (questId: number) => {
     return user && user.completedQuests ? user.completedQuests.includes(`${chapterId}-${questId}`) : false;
