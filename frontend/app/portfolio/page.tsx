@@ -1,7 +1,7 @@
 "use client";
 
-import { useUser } from "../contexts/UserContext";
-import { chapters } from "../chapters/chapters";
+import { useUser } from "@/contexts/UserContext";
+import { chapters } from "@/chapters/chapters";
 import { motion } from 'framer-motion';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

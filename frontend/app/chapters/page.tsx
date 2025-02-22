@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { chapters } from './chapters';
-import { useUser } from '../contexts/UserContext';
+import { chapters } from '@/chapters/chapters';
+import { useUser } from '@/contexts/UserContext';
 
 export default function Chapters() {
   const [visibleChapters, setVisibleChapters] = useState(3);

@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useUser } from '../contexts/UserContext';
-import { chapters } from '../chapters/chapters'; // Import chapters to map badge IDs
+import { useUser } from '@/contexts/UserContext';
+import { chapters } from '@/chapters/chapters'; // Import chapters to map badge IDs
 import React from 'react';
 
 type User = {

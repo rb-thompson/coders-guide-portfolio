@@ -1,11 +1,11 @@
 export const chapters = [
   {
     id: 1,
-    title: 'Getting Started',
-    description: 'Learn the basics while you complete your first quest.',
+    title: "Intro to the Data Galaxy",
+    description: "Begin your journey by exploring the tools of the trade.",
     action: 'First Things First',
     quests: [
-      { id: 1, title: 'Hello World', description: 'Write your first line of code.', badge: { id: "log-master", name: "Log Master", icon: "📜" } },
+      { id: 1, title: 'Explore the Cosmic Console', description: "Drag console commands into the Cosmic Console to activate it.", badge: { id: "explorer", name: "Explorer", icon: "🌠"} },
       { id: 2, title: 'Variable Voyage', description: 'Master variables and data types.', badge: { id: "var-explorer", name: "Variable Explorer", icon: "🔍" } },
       { id: 3, title: 'Function Fun', description: 'Create your first function.', badge: { id: "func-wizard", name: "Function Wizard", icon: "✨" } },
     ],

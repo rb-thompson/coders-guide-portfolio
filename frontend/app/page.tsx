@@ -6,8 +6,8 @@ import Link from "next/link";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { loadAll } from "@tsparticles/all";
-import { useUser } from './contexts/UserContext';
-import GalacticEntity from "./components/GalacticEntity";
+import { useUser } from '@/contexts/UserContext';
+import GalacticEntity from "@/components/GalacticEntity";
 
 
 export default function Home() {

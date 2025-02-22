@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { chapters } from '../chapters/chapters';
+import { chapters } from '@/chapters/chapters';
 
 type User = {
   email: string;

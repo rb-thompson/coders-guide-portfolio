@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, LogOut } from "lucide-react"; // For hamburger and close icons
-import { useUser } from '../contexts/UserContext';
+import { useUser } from '@/contexts/UserContext';
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false); // Track mobile menu state

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Serif_Text } from "next/font/google";
 import "./globals.css";
-import NavBar from "./components/NavBar";
-import { UserProvider } from './contexts/UserContext';
-import PageTransition from './components/PageTransition';
+import NavBar from "@/components/NavBar";
+import { UserProvider } from '@/contexts/UserContext';
+import PageTransition from '@/components/PageTransition';
 
 const dmserif = DM_Serif_Text({ 
   weight: '400',

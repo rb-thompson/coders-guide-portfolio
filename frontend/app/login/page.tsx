@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { useUser } from '../contexts/UserContext';
+import { useUser } from '@/contexts/UserContext';
 import { useRouter } from 'next/navigation';
 import { motion } from "framer-motion";
 import Link from "next/link";
