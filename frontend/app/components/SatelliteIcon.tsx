@@ -10,9 +10,21 @@ export default function SatelliteIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
-      className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 shrink-0"
-      animate={{ rotate: 360 }}
-      transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      className="absolute w-16 h-16 opacity-20 z-5 pointer-events-none"
+      initial={{ x: "45vw", y: "20vh" }} // Adjusted initial x to vw
+      animate={{
+        x: ["45vw", "70vw", "40vw", "43vw", "45vw"], // Wider x range with vw
+        y: ["20vh", "2vh", "30vh", "8vh", "20vh"],
+        rotate: [0, 45, -30, 60, 0],
+        scale: [1, 1.1, "1.05", 1.1, 1],
+      }}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        ease: "easeInOut",
+        times: [0, 0.25, 0.5, 0.75, 1],
+      }}
+      style={{ transformOrigin: "center" }}
     >
       {/* Satellite Body */}
       <path
@@ -37,17 +49,10 @@ export default function SatelliteIcon() {
         cx="12"
         cy="4"
         r="1"
-        fill="#39FF14" // Neon green hex
+        fill="#39FF14"
         initial={{ scale: 1, opacity: 0.5 }}
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.5, 1, 0.5],
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
       />
     </motion.svg>
   );
