@@ -60,53 +60,80 @@ export default function ChapterDetail() {
                   </span>
                 )}
               </div>
-              {user && isQuestCompleted(quest.id) ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
-                  <motion.span 
-                    className="text-green-500 flex"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: [.4, .7, 1], scale: [4, .7, 1] }}
-                    transition={{ duration: 0.8 }}
-                  >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                  </motion.span>
-                </div>
+
+
+
+              {user ? (
+                isQuestCompleted(quest.id) ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
+                    <motion.span 
+                      className="text-green-500 flex"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: [.4, .7, 1], scale: [4, .7, 1] }}
+                      transition={{ duration: 0.8 }}
+                    >
+                      <span className="text-green-500 font-semibold">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4.5 12.75l6 6 9-13.5"
+                          />
+                        </svg>
+                      </span>
+                    </motion.span>
+                  </div>
+                ) : (
+                  <Link href={`/chapters/${chapterId}/${quest.title.toLowerCase().replace(/\s+/g, "-")}`}>
+                    <motion.button
+                      className="mt-2 text-gray-300 hover:text-indigo-400 transition-colors font-normal text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-start space-x-2"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      aria-label={`Start quest: ${quest.title}`}
+                      onClick={() => setCurrentQuest(chapterId, quest.id)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-4"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7v14" />
+                      </svg>
+                      <span>Start Quest</span>
+                    </motion.button>
+                  </Link>
+                )
               ) : (
-                <Link href={`/chapters/${chapterId}/${quest.title.toLowerCase().replace(/\s+/g, "-")}`}>
-                  <motion.button
-                    className="mt-2 text-gray-300 hover:text-indigo-400 transition-colors font-normal text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-start space-x-2"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    aria-label={`Start quest: ${quest.title}`}
-                    onClick={() => setCurrentQuest(chapterId, quest.id)}
-                  >
+                <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
+                  <span className="text-gray-400 font-semibold">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="size-4"
+                      className="size-6"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7v14" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                      />
                     </svg>
-                    <span>Start Quest</span>
-                  </motion.button>
-                </Link>
+                  </span>
+                </div>
               )}
+              
             </div>
           ))}
         </div>
