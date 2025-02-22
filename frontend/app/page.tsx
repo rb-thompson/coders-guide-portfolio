@@ -7,7 +7,6 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { loadAll } from "@tsparticles/all";
 import { useUser } from './contexts/UserContext';
-import SatelliteIcon from "./components/GalacticEntity";
 import GalacticEntity from "./components/GalacticEntity";
 
 
