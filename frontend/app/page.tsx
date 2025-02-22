@@ -91,7 +91,7 @@ export default function Home() {
           className="relative z-10 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 2 }}
+          transition={{ duration: 1, delay: 1 }}
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
             It&apos;s portfolios all the way down, partner!
@@ -101,7 +101,7 @@ export default function Home() {
           className="relative z-10 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 3 }}
+          transition={{ duration: 1.2, delay: 2 }}
         >
           <p className="text-sm sm:text-lg md:text-xl mb-8 px-2 py-2 bg-black/40 rounded-lg select-none">
             <span className="text-blue-500">Your portfolio project is just a wormhole away.</span> <br /><span className="italic">Don’t Panic</span>—grab your notepad and start your journey.
