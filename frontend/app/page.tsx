@@ -13,7 +13,6 @@ import GalacticEntity from "./components/GalacticEntity";
 export default function Home() {
   const [init, setInit] = useState(false);
   const { user } = useUser();
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   // Initialize the tsParticles engine
   useEffect(() => {
@@ -126,16 +125,10 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
+
       <article className="grid grid-cols-1 md:grid-cols-4 justify-center gap-6 px-8 md:px-12 py-4 max-w-screen-xl mx-auto relative z-10">
         {/* Sign Up Card */}
-        <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
-            hoveredCard && hoveredCard !== "signup" ? "opacity-50" : "shadow-2xl"
-          }`}
-          onHoverStart={() => setHoveredCard("signup")}
-          onHoverEnd={() => setHoveredCard(null)}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+        <section className="bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] relative overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -150,21 +143,16 @@ export default function Home() {
               d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"
             />
           </svg>
-          <div className="relative font-mono z-10">
-            <h2 className="text-lg sm:text-xl md:text-2xl">Sign Up</h2>
-            <p className="text-sm md:text-md text-gray-200">Create a profile. Track & save your progress.</p>
+          <div className="relative z-10">
+            <h2 className="font-mono text-lg sm:text-xl md:text-2xl">Sign Up</h2>
+            <p className="font-mono text-sm md:text-md text-gray-200">
+              Create an account to track your coding journey, monitor progress through quests, and build a personalized profile showcasing your achievements.
+            </p>
           </div>
-        </motion.section>
+        </section>
 
         {/* Complete Quests Card */}
-        <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
-            hoveredCard && hoveredCard !== "quests" ? "opacity-50" : "shadow-2xl"
-          }`}
-          onHoverStart={() => setHoveredCard("quests")}
-          onHoverEnd={() => setHoveredCard(null)}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+        <section className="bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] relative overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -179,21 +167,16 @@ export default function Home() {
               d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
             />
           </svg>
-          <div className="relative font-mono z-10">
-            <h2 className="text-lg sm:text-xl md:text-2xl">Complete Quests</h2>
-            <p className="text-sm md:text-md text-gray-200">Unlock intriguing quests & rewards.</p>
+          <div className="relative z-10">
+            <h2 className="font-mono text-lg sm:text-xl md:text-2xl">Complete Quests</h2>
+            <p className="font-mono text-sm md:text-md text-gray-200">
+              Dive into coding chapters, tackle challenges in the quest log, and unlock new tasks and rewards as you advance through the galaxy.
+            </p>
           </div>
-        </motion.section>
+        </section>
 
         {/* Earn Badges Card */}
-        <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
-            hoveredCard && hoveredCard !== "badges" ? "opacity-50" : "shadow-2xl"
-          }`}
-          onHoverStart={() => setHoveredCard("badges")}
-          onHoverEnd={() => setHoveredCard(null)}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+        <section className="bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] relative overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -208,21 +191,16 @@ export default function Home() {
               d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59"
             />
           </svg>
-          <div className="relative font-mono z-10">
-            <h2 className="text-lg sm:text-xl md:text-2xl">Earn Badges</h2>
-            <p className="text-sm md:text-md text-gray-200">Rewards for each quest completed, plus a few special ones.</p>
+          <div className="relative z-10">
+            <h2 className="font-mono text-lg sm:text-xl md:text-2xl">Earn Badges</h2>
+            <p className="font-mono text-sm md:text-md text-gray-200">
+              Collect badges as you complete quests, each one a testament to your skills and milestones reached on your cosmic coding adventure.
+            </p>
           </div>
-        </motion.section>
+        </section>
 
         {/* Level Up Card */}
-        <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
-            hoveredCard && hoveredCard !== "levelup" ? "opacity-50" : "shadow-2xl"
-          }`}
-          onHoverStart={() => setHoveredCard("levelup")}
-          onHoverEnd={() => setHoveredCard(null)}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+        <section className="bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] relative overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -237,11 +215,13 @@ export default function Home() {
               d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
             />
           </svg>
-          <div className="relative font-mono z-10">
-            <h2 className="text-lg sm:text-xl md:text-2xl">Level Up</h2>
-            <p className="text-sm md:text-md text-gray-200">Grow as developer and overcome your portfolio challenges.</p>
+          <div className="relative z-10">
+            <h2 className="font-mono text-lg sm:text-xl md:text-2xl">Level Up</h2>
+            <p className="font-mono text-sm md:text-md text-gray-200">
+              Enhance your developer skills with each quest, building a stronger portfolio and leveling up your coding prowess in the galaxy.
+            </p>
           </div>
-        </motion.section>
+        </section>
       </article>
     </div>
   );
