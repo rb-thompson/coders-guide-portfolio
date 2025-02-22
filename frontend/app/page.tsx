@@ -7,7 +7,8 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { loadAll } from "@tsparticles/all";
 import { useUser } from './contexts/UserContext';
-import SatelliteIcon from "./components/SatelliteIcon";
+import SatelliteIcon from "./components/GalacticEntity";
+import GalacticEntity from "./components/GalacticEntity";
 
 
 export default function Home() {
@@ -76,7 +77,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-700 text-gray-200">
-      <SatelliteIcon />
+      <GalacticEntity />
       <div className="flex flex-col items-center justify-center pt-20 pb-6">
         {/* Starry Background */}
         {init && (
@@ -134,13 +135,12 @@ export default function Home() {
       <article className="grid grid-cols-1 md:grid-cols-4 justify-center gap-6 px-8 md:px-12 py-4 max-w-screen-xl mx-auto relative z-10">
         {/* Sign Up Card */}
         <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 ${
+          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
             hoveredCard && hoveredCard !== "signup" ? "opacity-50" : "shadow-2xl"
           }`}
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
           onHoverStart={() => setHoveredCard("signup")}
           onHoverEnd={() => setHoveredCard(null)}
+          transition={{ type: "spring", stiffness: 300 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -164,13 +164,12 @@ export default function Home() {
 
         {/* Complete Quests Card */}
         <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 ${
+          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-blue-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
             hoveredCard && hoveredCard !== "quests" ? "opacity-50" : "shadow-2xl"
           }`}
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
           onHoverStart={() => setHoveredCard("quests")}
           onHoverEnd={() => setHoveredCard(null)}
+          transition={{ type: "spring", stiffness: 300 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -194,13 +193,12 @@ export default function Home() {
 
         {/* Earn Badges Card */}
         <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 ${
+          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
             hoveredCard && hoveredCard !== "badges" ? "opacity-50" : "shadow-2xl"
           }`}
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
           onHoverStart={() => setHoveredCard("badges")}
           onHoverEnd={() => setHoveredCard(null)}
+          transition={{ type: "spring", stiffness: 300 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -224,13 +222,12 @@ export default function Home() {
 
         {/* Level Up Card */}
         <motion.section
-          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 ${
+          className={`bg-indigo-900/40 bg-gradient-to-tr from-indigo-500/20 to-purple-600/20 border border-indigo-500/20 p-4 rounded-lg shadow-xl flex flex-col items-center text-center min-h-[10rem] cursor-pointer relative overflow-hidden transition-opacity duration-300 md:hover:scale-105 active:scale-95 active:shadow-2xl ${
             hoveredCard && hoveredCard !== "levelup" ? "opacity-50" : "shadow-2xl"
           }`}
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
           onHoverStart={() => setHoveredCard("levelup")}
           onHoverEnd={() => setHoveredCard(null)}
+          transition={{ type: "spring", stiffness: 300 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
