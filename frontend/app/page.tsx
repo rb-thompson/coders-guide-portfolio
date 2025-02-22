@@ -92,7 +92,7 @@ export default function Home() {
           transition={{ duration: 1, delay: 1 }} // Delayed fade-in
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
-            It's portfolios all the way down, partner!
+            It’s portfolios all the way down, partner!
           </h1>
         </motion.div>
 
