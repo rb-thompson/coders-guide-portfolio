@@ -44,7 +44,7 @@ export default function ChapterDetail() {
           <h2 className="text-xl font-semibold mb-4 text-gray-300">Quests</h2>
           {chapter.quests.map((quest) => (
             <div key={quest.id} className="mb-4 relative">
-              <div className={`p-3 bg-gray-900/50 rounded-lg flex justify-between items-center ${!user ? "opacity-50" : ""}`}>
+              <div className={`p-3 ${user && isQuestCompleted(quest.id) ? "bg-indigo-700" : "bg-gray-900/50"}  rounded-lg flex justify-between items-center ${!user ? "opacity-50" : ""}`}>
                 <div>
                   <h3 className="text-lg font-normal text-gray-200">{quest.title}</h3>
                   <p className="text-sm text-gray-400">{quest.description}</p>
@@ -61,7 +61,12 @@ export default function ChapterDetail() {
               </div>
               {user && isQuestCompleted(quest.id) ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
-                  <span className="text-green-500 font-semibold">
+                  <motion.span 
+                    className="text-green-500 flex"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: [.4, .7, 1], scale: [4, .7, 1] }}
+                    transition={{ duration: 0.8 }}
+                  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -76,7 +81,7 @@ export default function ChapterDetail() {
                       d="M4.5 12.75l6 6 9-13.5"
                     />
                   </svg>
-                  </span>
+                  </motion.span>
                 </div>
               ) : (
                 <Link href={`/chapters/${chapterId}/${quest.title.toLowerCase().replace(/\s+/g, "-")}`}>
