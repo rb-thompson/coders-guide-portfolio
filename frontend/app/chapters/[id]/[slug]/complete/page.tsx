@@ -3,29 +3,29 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useUser } from "@/contexts/UserContext";
 import { chapters } from "@/chapters/chapters";
 
-type Params = { id: string; slug: string };
-
-export default function QuestComplete({ params }: { params: Params }) {
+export default function QuestComplete() {
   const router = useRouter();
-  const chapterId = parseInt(params.id, 10);
-  const slug = params.slug;
-  const chapter = chapters.find((ch) => ch.id === chapterId);
-  const questIndex = chapter?.quests.findIndex((q) => q.title.toLowerCase().replace(/\s+/g, "-") === slug);
-  const quest = questIndex !== undefined && questIndex !== -1 ? chapter?.quests[questIndex] : undefined;
-  const nextQuest = questIndex !== undefined && questIndex !== -1 && questIndex + 1 < (chapter?.quests.length ?? 0)
-    ? chapter?.quests[questIndex + 1]
-    : undefined;
-  const nextChapter = chapters.find((ch) => ch.id === chapterId + 1);
+  const { getCurrentChapter, getCurrentQuest, setCurrentQuest } = useUser();
+  const chapter = getCurrentChapter();
+  const quest = getCurrentQuest();
 
   if (!chapter || !quest) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
-        <p className="text-xl font-mono text-gray-400">Quest not found</p>
+        <p className="text-xl font-mono text-gray-400">Quest not found - please complete a quest first.</p>
       </main>
     );
   }
+
+  const chapterId = chapter.id;
+  const questIndex = chapter.quests.findIndex((q) => q.id === quest.id);
+  const nextQuest = questIndex !== -1 && questIndex + 1 < chapter.quests.length
+    ? chapter.quests[questIndex + 1]
+    : undefined;
+  const nextChapter = chapters.find((ch) => ch.id === chapterId + 1);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
@@ -59,6 +59,7 @@ export default function QuestComplete({ params }: { params: Params }) {
               <button
                 className="font-mono text-gray-200 hover:text-indigo-400 transition-colors text-lg py-2 px-4 border border-indigo-500/20 rounded"
                 aria-label={`Start next quest: ${nextQuest.title}`}
+                onClick={() => setCurrentQuest(chapterId, nextQuest.id)}
               >
                 Next Quest: {nextQuest.title}
               </button>

@@ -1,17 +1,20 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { chapters } from '@/chapters/chapters';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { chapters } from "@/chapters/chapters";
 
 type User = {
   email: string;
   name: string;
   image?: string;
-  password?: string;
+  password?: string; 
   completedQuests?: string[];
   badges?: string[]; // Array of badge IDs
 };
+
+type Quest = (typeof chapters)[number]["quests"][number];
+type Chapter = (typeof chapters)[number];
 
 type UserContextType = {
   user: User | null;
@@ -19,22 +22,22 @@ type UserContextType = {
   login: (email: string, password: string) => boolean;
   logout: () => void;
   signup: (email: string, name: string, password: string) => boolean;
-  completeQuest: (chapterId: number, questId: number) => void; 
+  completeQuest: (chapterId: number, questId: number) => void;
+  currentChapterId: number | null;
+  currentQuestId: number | null;
+  setCurrentChapter: (chapterId: number) => void;
+  setCurrentQuest: (chapterId: number, questId: number) => void;
+  getCurrentChapter: () => Chapter | undefined;
+  getCurrentQuest: () => Quest | undefined;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (context === undefined) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
-};
-
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [user, setUserState] = useState<User | null>(null); // Always null initially
+  const [currentChapterId, setCurrentChapterId] = useState<number | null>(null); // Added
+  const [currentQuestId, setCurrentQuestId] = useState<number | null>(null); // Added
 
   const setUser = (newUser: User | null) => {
     console.log('Setting user:', newUser);
@@ -56,7 +59,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         console.log('Signup failed - Email already exists');
         return false;
       }
-      const newUser = { email, name, password, image: undefined, completedQuests: [] }; // Initialize empty completedQuests
+      const newUser = { email, name, password, image: undefined, completedQuests: [], badges: [] };
       const updatedUsers = [...storedUsers, newUser];
       localStorage.setItem('users', JSON.stringify(updatedUsers));
       setUser(newUser);
@@ -72,7 +75,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.log('Stored users:', storedUsers);
       const foundUser = storedUsers.find(u => u.email === email && u.password === password);
       if (foundUser) {
-        setUser({ ...foundUser, completedQuests: foundUser.completedQuests || [] });
+        setUser({ ...foundUser, completedQuests: foundUser.completedQuests || [], badges: foundUser.badges || [] });
         console.log('Login successful');
         return true;
       }
@@ -94,23 +97,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const questKey = `${chapterId}-${questId}`;
       const updatedCompletedQuests = user.completedQuests ? [...user.completedQuests, questKey] : [questKey];
 
-      // Find the badge for this quest (assuming chapters data is imported)
       const chapter = chapters.find(ch => ch.id === chapterId);
       const quest = chapter?.quests.find(q => q.id === questId);
       const badgeId = quest?.badge?.id;
 
-      // Add badge if it exists and isn't already earned
       const updatedBadges = user.badges
         ? badgeId && !user.badges.includes(badgeId) ? [...user.badges, badgeId] : user.badges
         : badgeId ? [badgeId] : [];
 
       const updatedUser = { ...user, completedQuests: updatedCompletedQuests, badges: updatedBadges };
-      
       setUser(updatedUser);
       console.log(`Completed quest ${questKey} and earned badge ${badgeId} for user ${user.email}`);
 
-
-      // Sync with users array
       const storedUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       const userIndex = storedUsers.findIndex(u => u.email === user.email);
       if (userIndex !== -1) {
@@ -121,7 +119,25 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Load user from localStorage only on client-side mount
+  const setCurrentChapter = (chapterId: number) => {
+    setCurrentChapterId(chapterId);
+    setCurrentQuestId(null); // Reset quest when changing chapters
+  };
+
+  const setCurrentQuest = (chapterId: number, questId: number) => {
+    setCurrentChapterId(chapterId);
+    setCurrentQuestId(questId);
+  };
+
+  const getCurrentChapter = () => {
+    return chapters.find((ch) => ch.id === currentChapterId);
+  };
+
+  const getCurrentQuest = () => {
+    const chapter = getCurrentChapter();
+    return chapter?.quests.find((q) => q.id === currentQuestId);
+  };
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('currentUser');
@@ -130,7 +146,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setUserState(JSON.parse(storedUser));
       }
     }
-  }, []); // Empty dependency array = run once on mount
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -143,11 +159,34 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       window.addEventListener('storage', handleStorageChange);
       return () => window.removeEventListener('storage', handleStorageChange);
     }
-  }, [router]); // Add router to dependencies
+  }, [router]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout, signup, completeQuest }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        login,
+        logout,
+        signup,
+        completeQuest,
+        currentChapterId,
+        currentQuestId,
+        setCurrentChapter,
+        setCurrentQuest,
+        getCurrentChapter,
+        getCurrentQuest,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
+};
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
 };

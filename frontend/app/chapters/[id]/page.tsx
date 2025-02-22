@@ -3,15 +3,13 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { chapters } from "@/chapters/chapters";
 import { useUser } from "@/contexts/UserContext";
-import React from "react";
+import { chapters } from "@/chapters/chapters";
 
-export default function ChapterDetail({ params }: { params: { id: string } }) {
+export default function ChapterDetail() {
   const router = useRouter();
-  const { user, completeQuest } = useUser();
-  const chapterId = parseInt(params.id, 10);
-  const chapter = chapters.find((ch) => ch.id === chapterId);
+  const { user, setCurrentQuest } = useUser();
+  const chapter = chapters.find((ch) => ch.id === 1); // Default to Chapter 1 for now; adjust as needed
 
   if (!chapter) {
     return (
@@ -20,6 +18,8 @@ export default function ChapterDetail({ params }: { params: { id: string } }) {
       </div>
     );
   }
+
+  const chapterId = chapter.id; // Use chapter ID from context or default
 
   const isQuestCompleted = (questId: number) => {
     return user && user.completedQuests ? user.completedQuests.includes(`${chapterId}-${questId}`) : false;
@@ -85,6 +85,7 @@ export default function ChapterDetail({ params }: { params: { id: string } }) {
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     aria-label={`Start quest: ${quest.title}`}
+                    onClick={() => setCurrentQuest(chapterId, quest.id)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

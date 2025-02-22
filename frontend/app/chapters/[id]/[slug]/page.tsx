@@ -1,32 +1,29 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { chapters } from "@/chapters/chapters";
 import { useUser } from "@/contexts/UserContext";
 import ExploreCosmicConsole from "@/quests/ExploreCosmicConsole";
 
-type Params = { id: string; slug: string };
-
-export default function QuestPage({ params }: { params: Params }) {
+export default function QuestPage() {
   const router = useRouter();
-  const { user, completeQuest } = useUser();
-  const chapterId = parseInt(params.id, 10);
-  const slug = params.slug;
-  const chapter = chapters.find((ch) => ch.id === chapterId);
-  const quest = chapter?.quests.find((q) => q.title.toLowerCase().replace(/\s+/g, "-") === slug);
+  const { user, completeQuest, getCurrentChapter, getCurrentQuest } = useUser();
+  const chapter = getCurrentChapter();
+  const quest = getCurrentQuest();
 
   if (!chapter || !quest) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
-        <p className="text-xl font-mono text-gray-400">Quest not found</p>
+        <p className="text-xl font-mono text-gray-400">Quest not found - please select a quest from the chapter page.</p>
       </main>
     );
   }
 
+  const chapterId = chapter.id;
+
   const handleComplete = () => {
     if (user) {
       completeQuest(chapterId, quest.id);
-      router.push(`/chapters/${chapterId}/${slug}/complete`);
+      router.push(`/chapters/${chapterId}/${quest.title.toLowerCase().replace(/\s+/g, "-")}/complete`);
     }
   };
 
