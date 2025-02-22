@@ -89,16 +89,24 @@ export default function Home() {
         {/* Coder's Guide Content */}
         <motion.div
           className="relative z-10 text-center"
-          initial={{ opacity: .5, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, delay: 2 }}
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
             It&apos;s portfolios all the way down, partner!
           </h1>
-          <p className="text-lg md:text-xl mb-8 px-2">
-            Your portfolio project is just a wormhole away. <br /><span className="italic">Don’t Panic</span>—grab your notepad and start your journey.
+        </motion.div>
+        <motion.div
+          className="relative z-10 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 3 }}
+        >
+          <p className="text-sm sm:text-lg md:text-xl mb-8 px-2 py-2 bg-black/40 rounded-lg select-none">
+            <span className="text-blue-500">Your portfolio project is just a wormhole away.</span> <br /><span className="italic">Don’t Panic</span>—grab your notepad and start your journey.
           </p>
+        </motion.div>
           <div className="flex justify-center items-center space-x-2 font-mono bg-black/20 w-64 m-auto p-2 rounded-lg">
           {user ? (
             <>
@@ -123,7 +131,7 @@ export default function Home() {
             </>
           )}
           </div>
-        </motion.div>
+        
       </div>
 
       <article className="grid grid-cols-1 md:grid-cols-4 justify-center gap-6 px-8 md:px-12 py-4 max-w-screen-xl mx-auto relative z-10">
