@@ -12,18 +12,17 @@ interface DragItem {
 
 export default function ExploreCosmicConsole({
   chapterId,
-  questId,
   onComplete,
 }: {
   chapterId: number;
   questId: number;
   onComplete: () => void;
 }) {
-  const [items, setItems] = useState<DragItem[]>([
+  const items: DragItem[] = [
     { id: 1, label: "log", correctZone: "console" },
     { id: 2, label: "error", correctZone: "console" },
     { id: 3, label: "warn", correctZone: "console" },
-  ]);
+  ];
   const [droppedItems, setDroppedItems] = useState<number[]>([]);
   const dragControls = useDragControls();
   const router = useRouter();
