@@ -5,18 +5,21 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { chapters } from "@/chapters/chapters";
 
-export default function QuestComplete({ params }: { params: { id: string; slug: string } }) {
+type Params = { id: string; slug: string };
+
+export default function QuestComplete({ params }: { params: Params }) {
   const router = useRouter();
   const chapterId = parseInt(params.id, 10);
   const slug = params.slug;
   const chapter = chapters.find((ch) => ch.id === chapterId);
   const questIndex = chapter?.quests.findIndex((q) => q.title.toLowerCase().replace(/\s+/g, "-") === slug);
-  const quest = questIndex !== undefined ? chapter?.quests[questIndex] : undefined;
-  const nextQuest = questIndex !== undefined && chapter?.quests[questIndex + 1];
-  const isLastChapter = chapterId === chapters.length;
+  const quest = questIndex !== undefined && questIndex !== -1 ? chapter?.quests[questIndex] : undefined;
+  const nextQuest = questIndex !== undefined && questIndex !== -1 && questIndex + 1 < (chapter?.quests.length ?? 0)
+    ? chapter?.quests[questIndex + 1]
+    : undefined;
   const nextChapter = chapters.find((ch) => ch.id === chapterId + 1);
 
-  if (!chapter || questIndex === undefined || questIndex === -1 || !quest) {
+  if (!chapter || !quest) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
         <p className="text-xl font-mono text-gray-400">Quest not found</p>

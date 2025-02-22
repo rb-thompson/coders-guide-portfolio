@@ -5,7 +5,9 @@ import { chapters } from "@/chapters/chapters";
 import { useUser } from "@/contexts/UserContext";
 import ExploreCosmicConsole from "@/quests/ExploreCosmicConsole";
 
-export default function QuestPage({ params }: { params: { id: string; slug: string } }) {
+type Params = { id: string; slug: string };
+
+export default function QuestPage({ params }: { params: Params }) {
   const router = useRouter();
   const { user, completeQuest } = useUser();
   const chapterId = parseInt(params.id, 10);
@@ -23,7 +25,8 @@ export default function QuestPage({ params }: { params: { id: string; slug: stri
 
   const handleComplete = () => {
     if (user) {
-      completeQuest(chapterId, quest.id); // Mark quest as complete in UserContext
+      completeQuest(chapterId, quest.id);
+      router.push(`/chapters/${chapterId}/${slug}/complete`);
     }
   };
 
