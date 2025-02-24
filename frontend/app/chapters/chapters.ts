@@ -6,7 +6,7 @@ export const chapters = [
     action: 'First Things First',
     quests: [
       { id: 1, title: 'Explore the Cosmic Console', description: "Drag console commands into the Cosmic Console to activate it.", badge: { id: "explorer", name: "Explorer", icon: "🌠"} },
-      { id: 2, title: 'Variable Voyage', description: 'Master variables and data types.', badge: { id: "var-explorer", name: "Variable Explorer", icon: "🔍" } },
+      { id: 2, title: 'Resume Ruckus', description: 'Prioritize resume skills in correct order or face the black hole!', badge: { id: "prioritizer", name: "Prioritizer", icon: "🔍" } },
       { id: 3, title: 'Function Fun', description: 'Create your first function.', badge: { id: "func-wizard", name: "Function Wizard", icon: "✨" } },
     ],
   },
