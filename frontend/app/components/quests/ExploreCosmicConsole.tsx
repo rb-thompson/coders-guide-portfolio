@@ -20,11 +20,11 @@ interface ToastMessage {
 
 export default function ExploreCosmicConsole({
   chapterId,
-  questId, // Added as optional prop
+  questId,
   onComplete,
 }: {
   chapterId: number;
-  questId?: number; // Optional to avoid breaking existing uses
+  questId?: number; // Optional prop
   onComplete: () => void;
 }) {
   const items: DragItem[] = [
@@ -69,7 +69,9 @@ export default function ExploreCosmicConsole({
       if (newDropped.size === items.length) {
         setTimeout(() => {
           onComplete();
-          router.push(`/chapters/${chapterId}/explore-the-cosmic-console/complete`);
+          // Use questId in the route if provided, fallback to default
+          const questPath = questId ? `quest-${questId}` : "explore-the-cosmic-console";
+          router.push(`/chapters/${chapterId}/${questPath}/complete`);
         }, 1000);
       }
     }
@@ -82,7 +84,7 @@ export default function ExploreCosmicConsole({
   return (
     <article className="relative p-4 bg-indigo-900/40 rounded-lg shadow-xl min-h-[20rem] flex flex-col">
       <h3 className="font-mono text-xl text-center text-gray-200 mb-4" aria-label="Quest: Explore the Cosmic Console">
-        Command and Conquer
+        First Steps
       </h3>
       <p className="font-mono text-sm text-gray-300 mb-6 text-center" aria-label="Instructions: Drag commands into the cosmic terminal below">
       As a coder, you’ll be using commands quite often. This challenge just checks to see if you can point, click, and follow instructions.
