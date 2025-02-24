@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useDragControls, PanInfo } from "framer-motion"; // Import PanInfo
+import { motion, useDragControls, PanInfo } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toast"; // Adjust path as needed
 
@@ -20,9 +20,11 @@ interface ToastMessage {
 
 export default function ExploreCosmicConsole({
   chapterId,
+  questId, // Added as optional prop
   onComplete,
 }: {
   chapterId: number;
+  questId?: number; // Optional to avoid breaking existing uses
   onComplete: () => void;
 }) {
   const items: DragItem[] = [
@@ -44,7 +46,7 @@ export default function ExploreCosmicConsole({
     setToastQueue((prev) => prev.filter((toast) => toast.id !== id));
   };
 
-  const handleDragEnd = (item: DragItem, info: PanInfo) => { // Replace 'any' with 'PanInfo'
+  const handleDragEnd = (item: DragItem, info: PanInfo) => {
     const dropZone = document.getElementById("console-drop-zone");
     if (!dropZone) return;
 
@@ -57,8 +59,8 @@ export default function ExploreCosmicConsole({
 
     if (droppedInZone && !droppedItems.has(item.id)) {
       const newDropped = new Map(droppedItems);
-      const snapX = droppedItems.size * 60 + 10; // 60px apart, 10px padding
-      const snapY = 10; // Fixed vertical position
+      const snapX = droppedItems.size * 60 + 10;
+      const snapY = 10;
       newDropped.set(item.id, { x: snapX, y: snapY });
       setDroppedItems(newDropped);
 
@@ -68,7 +70,7 @@ export default function ExploreCosmicConsole({
         setTimeout(() => {
           onComplete();
           router.push(`/chapters/${chapterId}/explore-the-cosmic-console/complete`);
-        }, 1000); // Delay for completion
+        }, 1000);
       }
     }
   };
