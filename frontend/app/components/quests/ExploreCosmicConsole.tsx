@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useDragControls } from "framer-motion";
+import { motion, useDragControls, PanInfo } from "framer-motion"; // Import PanInfo
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toast"; // Adjust path as needed
 
@@ -44,7 +44,7 @@ export default function ExploreCosmicConsole({
     setToastQueue((prev) => prev.filter((toast) => toast.id !== id));
   };
 
-  const handleDragEnd = (item: DragItem, info: any) => {
+  const handleDragEnd = (item: DragItem, info: PanInfo) => { // Replace 'any' with 'PanInfo'
     const dropZone = document.getElementById("console-drop-zone");
     if (!dropZone) return;
 
@@ -83,7 +83,7 @@ export default function ExploreCosmicConsole({
         Command and Conquer
       </h3>
       <p className="font-mono text-sm text-gray-300 mb-6 text-center" aria-label="Instructions: Drag commands into the cosmic terminal below">
-        As a coder, you’ll be using commands quite often. This challenge just checks to see if you can point, click, and follow instructions.
+      As a coder, you’ll be using commands quite often. This challenge just checks to see if you can point, click, and follow instructions.
       </p>
 
       <div className="flex justify-around mb-6 relative">
@@ -112,7 +112,6 @@ export default function ExploreCosmicConsole({
         id="console-drop-zone"
         className="bg-gradient-to-br from-indigo-950 to-blue-700 p-4 rounded-lg border-2 border-indigo-500/20 h-32 relative overflow-hidden shadow-inner font-mono text-gray-200 mt-auto"
       >
-        {/* Terminal Header */}
         <div className="absolute top-0 left-0 right-0 h-6 bg-indigo-900/80 flex items-center px-2 gap-2">
           <div className="w-2 h-2 rounded-full bg-red-500/50" />
           <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
@@ -120,7 +119,6 @@ export default function ExploreCosmicConsole({
           <span className="text-xs text-gray-400 ml-2">Cosmic Code Terminal</span>
         </div>
 
-        {/* Terminal Content */}
         <div className="pt-8 h-full flex flex-col justify-between">
           <div className="relative flex-1">
             {Array.from(droppedItems.entries()).map(([id, pos]) => {
