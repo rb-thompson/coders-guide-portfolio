@@ -38,7 +38,7 @@ export default function QuestComplete() {
         <p className="text-xl text-center font-mono">
           <span className="text-neutral-400"><em>Inspecting anamolies..</em></span> <br /> <br />
           ← <Link href={"/chapters"} className="text-white border-b-2 hover:border-b-4 border-indigo-400">
-          Let's get you back home
+          Let’s get you back home
           </Link>.
         </p>
       </main>
@@ -104,7 +104,7 @@ export default function QuestComplete() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             aria-label="Quest Completed Celebration"
           >
-            Isn't it sweet?
+            Isn’t it sweet?
           </motion.h1>
         </header>
 

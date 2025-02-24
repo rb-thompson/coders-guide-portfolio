@@ -25,7 +25,7 @@ export default function NavBar() {
         {/* Logo/branding */}
         <Link href="/" className="text-sm/3">
           <span className="block font-light">
-            The Coder's Guide <span className="text-gray-500">to</span>
+            The Coder’s Guide <span className="text-gray-500">to</span>
           </span>
           <span className="block text-center">
             <span className="text-gray-500">the</span> Portfolio Project
