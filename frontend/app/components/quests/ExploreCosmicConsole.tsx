@@ -75,7 +75,9 @@ export default function ExploreCosmicConsole({
       if (newDropped.size === items.length) {
         setTimeout(() => {
           onComplete();
-          router.push(`/chapters/${chapterId}/explore-the-cosmic-console/complete`);
+          // Use questId if provided, fallback to hardcoded slug
+          const slug = questId ? `quest-${questId}` : "explore-the-cosmic-console";
+          router.push(`/chapters/${chapterId}/${slug}/complete`);
         }, 1000);
       }
     }
