@@ -13,8 +13,6 @@ export default function QuestComplete() {
   const router = useRouter();
   const { getCurrentChapter, getCurrentQuest, setCurrentQuest } = useUser();
   const [init, setInit] = useState(false);
-  const [countdown, setCountdown] = useState(9);
-  const [showConfetti, setShowConfetti] = useState(true); // New state to control confetti
 
   // Initialize particle engine for confetti
   useEffect(() => {
@@ -22,35 +20,6 @@ export default function QuestComplete() {
       await loadSlim(engine);
     }).then(() => setInit(true));
   }, []);
-
-  // Confetti burst control: hide after 2 seconds
-  useEffect(() => {
-    if (init && showConfetti) {
-      const timer = setTimeout(() => {
-        setShowConfetti(false);
-      }, 2000); // Matches life.duration in confettiOptions
-      return () => clearTimeout(timer);
-    }
-  }, [init, showConfetti]);
-
-  // Countdown timer logic
-  useEffect(() => {
-    const chapter = getCurrentChapter();
-    const quest = getCurrentQuest();
-    const chapterId = chapter?.id;
-    const questIndex = chapter && quest ? chapter.quests.findIndex((q) => q.id === quest.id) : -1;
-    const nextQuest = chapter && questIndex !== -1 && questIndex + 1 < chapter.quests.length ? chapter.quests[questIndex + 1] : undefined;
-
-    if (nextQuest && countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    } else if (countdown === 0 && nextQuest && chapterId) {
-      setCurrentQuest(chapterId, nextQuest.id);
-      router.push(`/chapters/${chapterId}/${nextQuest.title.toLowerCase().replace(/\s+/g, "-")}`);
-    }
-  }, [countdown, getCurrentChapter, getCurrentQuest, setCurrentQuest, router]);
 
   const chapter = getCurrentChapter();
   const quest = getCurrentQuest();
@@ -87,7 +56,7 @@ export default function QuestComplete() {
       number: { value: 100 },
       color: { value: ["#4f46e5", "#22d3ee", "#10b981"] },
       shape: { type: "circle" },
-      opacity: { value: .8 },
+      opacity: { value: 1 },
       size: { value: { min: 2, max: 5 } },
       move: { enable: true, speed: 6, direction: "top", outModes: "destroy" },
       life: { duration: 2, count: 1 },
@@ -104,7 +73,7 @@ export default function QuestComplete() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
-      {init && showConfetti && ( // Only show Particles when showConfetti is true
+      {init && (
         <Particles
           id="confetti"
           options={confettiOptions}
@@ -165,7 +134,7 @@ export default function QuestComplete() {
                 }}
                 aria-label={`Start next quest: ${nextQuest.title}`}
               >
-                Next Quest: {nextQuest.title} ({countdown}s)
+                Next Quest: {nextQuest.title}
               </button>
             </div>
           ) : nextChapter ? (
