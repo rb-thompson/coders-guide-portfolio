@@ -13,7 +13,8 @@ export default function QuestComplete() {
   const router = useRouter();
   const { getCurrentChapter, getCurrentQuest, setCurrentQuest } = useUser();
   const [init, setInit] = useState(false);
-  const [countdown, setCountdown] = useState(9); // Countdown starts at 9
+  const [countdown, setCountdown] = useState(9);
+  const [showConfetti, setShowConfetti] = useState(true); // New state to control confetti
 
   // Initialize particle engine for confetti
   useEffect(() => {
@@ -22,7 +23,17 @@ export default function QuestComplete() {
     }).then(() => setInit(true));
   }, []);
 
-  // Countdown timer logic (moved to top)
+  // Confetti burst control: hide after 2 seconds
+  useEffect(() => {
+    if (init && showConfetti) {
+      const timer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 2000); // Matches life.duration in confettiOptions
+      return () => clearTimeout(timer);
+    }
+  }, [init, showConfetti]);
+
+  // Countdown timer logic
   useEffect(() => {
     const chapter = getCurrentChapter();
     const quest = getCurrentQuest();
@@ -93,7 +104,7 @@ export default function QuestComplete() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-center p-6">
-      {init && (
+      {init && showConfetti && ( // Only show Particles when showConfetti is true
         <Particles
           id="confetti"
           options={confettiOptions}
