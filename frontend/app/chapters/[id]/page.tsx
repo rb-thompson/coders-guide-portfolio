@@ -58,7 +58,7 @@ export default function ChapterDetail() {
                 } rounded-lg flex justify-between items-center ${!user ? "opacity-50" : ""}`}
               >
                 <div>
-                  <h3 className="text-lg font-normal text-yellow-300/60 select-none">{quest.title}</h3>
+                  <h3 className="text-lg font-normal text-yellow-300/90 select-none">{quest.title}</h3>
                   <p className="text-sm text-gray-400 select-none">{quest.description}</p>
                 </div>
                 {user && (
