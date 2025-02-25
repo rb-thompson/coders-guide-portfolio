@@ -5,13 +5,14 @@
 
 import { useState } from "react"; // Removed unused useEffect
 import { motion } from "framer-motion"; // For smooth card animations
-import Link from "next/link";
+import { useRouter } from "next/navigation"; // Added for routing
 import { chapters } from "@/chapters/chapters"; // Static chapter data
 import { useUser } from "@/contexts/UserContext"; // User state for progress tracking
 
 export default function Chapters() {
   const [visibleChapters, setVisibleChapters] = useState(3); // Controls how many chapters are shown
-  const { user } = useUser(); // Get current user (null if logged out)
+  const { user, setCurrentChapter } = useUser(); // Added setCurrentChapter
+  const router = useRouter(); // Added for navigation
 
   // Calculate chapter completion percentage
   const getChapterProgress = (chapterId: number) => {
@@ -30,6 +31,11 @@ export default function Chapters() {
     setVisibleChapters((prev) => Math.min(prev + 3, chapters.length)); // Caps at total chapters
   };
 
+  const handleChapterSelect = (chapterId: number) => {
+    setCurrentChapter(chapterId); // Set context
+    router.push(`/chapters/${chapterId}`); // Navigate
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-start p-6">
       {/* Page header */}
@@ -45,17 +51,17 @@ export default function Chapters() {
 
           {/* Render visible chapters */}
           {chapters.slice(0, visibleChapters).map((chapter, index) => (
-            <Link key={chapter.id} href={`/chapters/${chapter.id}`}>
-              <motion.div
-                // Unique key for animation stability (user.email ensures re-render on login)
-                key={user ? `${chapter.id}-${user.email}` : chapter.id}
-                className={`relative mb-12 ${index % 2 === 0 ? "left-0" : "right-0"} w-5/6 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg font-mono ${index % 2 === 0 ? "ml-auto" : "mr-auto"} flex flex-col justify-between cursor-pointer`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }} // Slide in from sides
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }} // Slide out on unmount
-                transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }} // Staggered entry
-                whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)" }} // Hover feedback
-              >
+            <motion.div 
+              key={user ? `${chapter.id}-${user.email}` : chapter.id}
+              className={`relative mb-12 ${index % 2 === 0 ? "left-0" : "right-0"} w-5/6 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg font-mono ${index % 2 === 0 ? "ml-auto" : "mr-auto"} flex flex-col justify-between cursor-pointer`}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.1 }}
+              whileHover={{ scale: 1.02, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)" }}
+              onClick={() => handleChapterSelect(chapter.id)} // Replaced Link with onClick
+            >
+
                 {/* Chapter title and ID */}
                 <div>
                   <div className="grid grid-cols-2 md:grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
@@ -101,8 +107,8 @@ export default function Chapters() {
                     {chapter.action} {/* e.g., "Start" or "Continue" from chapters data */}
                   </motion.span>
                 </div>
-              </motion.div>
-            </Link>
+
+            </motion.div>
           ))}
         </div>
 
