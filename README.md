@@ -60,3 +60,57 @@ To you who's reading this: thank you for checking out my work. This project refl
 Happy coding!
 
 R. Brandon Thompson 
+
+## Additional Project Structure
+
+```
+# Project Structure
+
+coders-guide-portfolio/
+├── frontend/                                   # Next.js frontend
+│   ├── app/                                    # App Router directory (replaces pages/)
+│   │   ├── chapters/                         
+│   │   │   ├── [id]/                       
+│   │   │   │   ├── [slug]/                 
+│   │   │   │   │   ├── complete/           
+│   │   │   │   │   │   └── page.tsx            # Quest completion page (/chapters/[id]/[slug]/complete)
+│   │   │   │   │   └── page.tsx                # Quest page (/chapters/[id]/[slug])
+│   │   │   │   └── page.tsx                    # Select a quest (/chapters/[id])
+│   │   │   ├── chapters.ts                     # Chapter data
+│   │   │   └── page.tsx                        # Select a chapter (/chapters) 
+│   │   ├── components/                         # Next.js reusable components
+│   │   │   ├── quests/                         
+│   │   │   │   ├── ExploreCosmicConsole.tsx    # Each quest challenge is found here
+│   │   │   │   └── ResumeRuckus.tsx            # and loaded into the quest page.
+│   │   │   ├── GalacticEntity.tsx              # UI element that wanders the homepage
+│   │   │   ├── LoadingSpinner.tsx              # Shows in between page loads
+│   │   │   ├── NavBar.tsx                      # Main navigation component
+│   │   │   ├── PageTransition.tsx              # Smoothes page transitions
+│   │   │   └── Toast.tsx                       # Toast messages
+│   │   ├── context/                        
+│   │   │   └── UserContext.tsx                 # User state management
+│   │   ├── login/                          
+│   │   │   └── page.tsx                        # Login page (/login)
+│   │   ├── portfolio/                        
+│   │   │   └── page.tsx                        # Portfolio page (Badge Showcase) (/portfolio)
+│   │   ├── profile/                        
+│   │   │   └── page.tsx                        # Profile Settings page (/profile)
+│   │   ├── signup/                        
+│   │   │   └── page.tsx                        # Signup page (/signup)
+│   │   ├── layout.tsx                          # Root layout (wraps all pages)
+│   │   ├── page.tsx                            # Home page (equivalent to pages/index.tsx)
+│   │   ├── globals.css                         # Global styles (includes Tailwind directives)
+│   │   └── favicon.ico                         # Favicon
+│   ├── public/                                 # Static assets (images, fonts, etc.)
+│   ├── package.json                            # Node.js dependencies
+│   ├── tsconfig.json                           # TypeScript configuration
+│   ├── next.config.mjs                         # Next.js configuration
+│   ├── postcss.config.mjs                      # PostCSS configuration (for Tailwind)
+│   └── tailwind.config.ts                      # Tailwind CSS configuration
+├── backend/                                    # Python backend
+│   ├── venv/                                   # Python virtual environment
+│   ├── main.py                                 # FastAPI app
+│   └── requirements.txt                        # Python dependencies
+├── .gitignore                                  # Git ignore file
+└── README.md                                   # Project documentation
+```
