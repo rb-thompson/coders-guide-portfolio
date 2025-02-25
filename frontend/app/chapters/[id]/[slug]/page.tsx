@@ -5,11 +5,9 @@ import { useUser } from "@/contexts/UserContext";
 import ExploreCosmicConsole from "@/components/quests/ExploreCosmicConsole";
 import ResumeRuckus from "@/components/quests/ResumeRuckus";
 
-// Quest registry: Map quest IDs to components
 const questComponents: Record<number, React.ComponentType<{ chapterId: number; questId?: number; onComplete: () => void }>> = {
   1: ExploreCosmicConsole,
   2: ResumeRuckus,
-  // Add more quests here as needed
 };
 
 export default function QuestPage() {

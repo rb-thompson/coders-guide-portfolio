@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, useDragControls, PanInfo } from "framer-motion";
 import { useRouter } from "next/navigation";
-import Toast from "@/components/Toast"; // Adjust path as needed
+import Toast from "@/components/Toast";
 
 interface DragItem {
   id: number;
@@ -24,7 +24,7 @@ export default function ExploreCosmicConsole({
   onComplete,
 }: {
   chapterId: number;
-  questId?: number; // Optional prop
+  questId?: number;
   onComplete: () => void;
 }) {
   const items: DragItem[] = [
@@ -36,6 +36,8 @@ export default function ExploreCosmicConsole({
   const [toastQueue, setToastQueue] = useState<ToastMessage[]>([]);
   const dragControls = useDragControls();
   const router = useRouter();
+  const containerRef = useRef<HTMLDivElement>(null); // Constrain draggables
+  const dropZoneRef = useRef<HTMLDivElement>(null); // Drop zone bounds
 
   const showToast = (message: string, duration = 2000) => {
     const newToast = { id: Date.now(), text: message, duration };
@@ -47,19 +49,23 @@ export default function ExploreCosmicConsole({
   };
 
   const handleDragEnd = (item: DragItem, info: PanInfo) => {
-    const dropZone = document.getElementById("console-drop-zone");
+    const dropZone = dropZoneRef.current;
     if (!dropZone) return;
 
     const rect = dropZone.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+    const scrollX = window.scrollX || window.pageXOffset;
+
+    // Adjust drop coordinates for scroll position
     const droppedInZone =
-      info.point.x >= rect.left &&
-      info.point.x <= rect.right &&
-      info.point.y >= rect.top &&
-      info.point.y <= rect.bottom;
+      info.point.x >= rect.left + scrollX &&
+      info.point.x <= rect.right + scrollX &&
+      info.point.y >= rect.top + scrollY &&
+      info.point.y <= rect.bottom + scrollY;
 
     if (droppedInZone && !droppedItems.has(item.id)) {
       const newDropped = new Map(droppedItems);
-      const snapX = droppedItems.size * 60 + 10;
+      const snapX = droppedItems.size * 60 + 10; // Kept px for simplicity, matches original
       const snapY = 10;
       newDropped.set(item.id, { x: snapX, y: snapY });
       setDroppedItems(newDropped);
@@ -69,28 +75,22 @@ export default function ExploreCosmicConsole({
       if (newDropped.size === items.length) {
         setTimeout(() => {
           onComplete();
-          // Use questId in the route if provided, fallback to default
-          const questPath = questId ? `quest-${questId}` : "explore-the-cosmic-console";
-          router.push(`/chapters/${chapterId}/${questPath}/complete`);
+          router.push(`/chapters/${chapterId}/explore-the-cosmic-console/complete`);
         }, 1000);
       }
     }
   };
 
-  const handleAbort = () => {
-    router.push(`/chapters/${chapterId}`);
-  };
-
   return (
-    <article className="relative p-4 bg-indigo-900/40 rounded-lg shadow-xl min-h-[20rem] flex flex-col">
+    <article ref={containerRef} className="relative p-4 bg-indigo-900/40 rounded-lg shadow-xl min-h-[20rem]">
       <h3 className="font-mono text-xl text-center text-gray-200 mb-4" aria-label="Quest: Explore the Cosmic Console">
-        First Steps
+        Explore the Cosmic Console
       </h3>
-      <p className="font-mono text-sm text-gray-300 mb-6 text-center" aria-label="Instructions: Drag commands into the cosmic terminal below">
-      As a coder, you’ll be using commands quite often. This challenge just checks to see if you can point, click, and follow instructions.
+      <p className="font-mono text-sm text-gray-300 mb-6 text-center" aria-label="Instructions: Drag all commands into the console below">
+        Drag all commands into the console below to activate it!
       </p>
 
-      <div className="flex justify-around mb-6 relative">
+      <div className="flex justify-around mb-8 relative">
         {items.map((item) => (
           !droppedItems.has(item.id) && (
             <motion.div
@@ -98,12 +98,12 @@ export default function ExploreCosmicConsole({
               drag
               dragControls={dragControls}
               dragElastic={0.5}
-              dragConstraints={{ left: -100, right: 100, top: -50, bottom: 200 }}
+              dragConstraints={containerRef} // Constrain to container
               dragSnapToOrigin
               onDragEnd={(_, info) => handleDragEnd(item, info)}
-              className="bg-indigo-600/60 p-2 rounded-md text-gray-200 font-mono text-sm cursor-grab z-10 border border-indigo-400/50 hover:bg-indigo-600/80 transition-colors"
+              className="bg-indigo-600/60 p-2 rounded-md text-gray-200 font-mono text-sm cursor-grab z-10"
               role="button"
-              aria-label={`Drag ${item.label} command to the cosmic terminal`}
+              aria-label={`Drag ${item.label} command to the console`}
               whileDrag={{ scale: 1.1 }}
             >
               {item.label}
@@ -113,8 +113,11 @@ export default function ExploreCosmicConsole({
       </div>
 
       <div
+        ref={dropZoneRef}
         id="console-drop-zone"
-        className="bg-gradient-to-br from-indigo-950 to-blue-700 p-4 rounded-lg border-2 border-indigo-500/20 h-32 relative overflow-hidden shadow-inner font-mono text-gray-200 mt-auto"
+        className="bg-gradient-to-br from-indigo-950 to-blue-700 p-4 rounded-lg border-2 border-indigo-500/20 h-32 relative overflow-hidden font-mono text-gray-200"
+        role="region"
+        aria-label="Cosmic Console drop zone"
       >
         <div className="absolute top-0 left-0 right-0 h-6 bg-indigo-900/80 flex items-center px-2 gap-2">
           <div className="w-2 h-2 rounded-full bg-red-500/50" />
@@ -130,7 +133,7 @@ export default function ExploreCosmicConsole({
               return (
                 <motion.div
                   key={id}
-                  className="absolute bg-indigo-600/80 p-1 rounded-sm text-gray-200 text-xs border border-indigo-400/30"
+                  className="absolute bg-indigo-600/80 p-1 rounded-sm text-gray-200 text-xs"
                   initial={{ opacity: 0, x: pos.x, y: pos.y }}
                   animate={{ opacity: 1, x: pos.x, y: pos.y }}
                   transition={{ duration: 0.3 }}
@@ -142,29 +145,11 @@ export default function ExploreCosmicConsole({
           </div>
           <p className="text-xs text-gray-300">
             {droppedItems.size === items.length
-              ? "> Portfolio powered up!"
-              : `> Awaiting commands (${droppedItems.size}/${items.length})`}
+              ? "> Console Activated!"
+              : `> Drop commands here (${droppedItems.size}/${items.length})`}
           </p>
         </div>
       </div>
-
-      <button
-        onClick={handleAbort}
-        className="mt-4 bg-indigo-700/60 hover:bg-indigo-700/80 text-gray-200 font-mono text-sm py-2 px-4 rounded-md border border-indigo-500/50 flex items-center justify-center gap-2 transition-colors"
-        aria-label="Abort quest and return to chapter"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-4 h-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        Abort
-      </button>
 
       <Toast messages={toastQueue} onRemove={removeToast} />
     </article>
