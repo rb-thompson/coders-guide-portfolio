@@ -39,8 +39,8 @@ export default function Chapters() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-start p-6">
       {/* Page header */}
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center font-mono">
-        Embark on Cosmic Quests
+      <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center font-mono select-none">
+        Adventure Log
       </h1>
 
       {/* Chapter list container */}

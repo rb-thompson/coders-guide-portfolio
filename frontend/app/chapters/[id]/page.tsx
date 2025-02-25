@@ -1,11 +1,8 @@
 "use client";
 
-// Chapter detail page
-// Displays quests for a specific chapter with completion status and navigation
-
-import { useRouter } from "next/navigation"; // For routing and URL params
-import { motion } from "framer-motion"; // Smooth animations
-import { useUser } from "@/contexts/UserContext"; // User state for quest progress
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { useUser } from "@/contexts/UserContext";
 
 export default function ChapterDetail() {
   const router = useRouter();
@@ -37,7 +34,6 @@ export default function ChapterDetail() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-blue-800 text-gray-200 flex flex-col items-center justify-start p-6">
-      {/* Chapter container with fade-in animation */}
       <motion.div
         className="w-8/10 md:w-3/5 p-4 bg-black/90 rounded-lg shadow-lg font-mono"
         initial={{ opacity: 0, y: 50 }}
@@ -45,12 +41,12 @@ export default function ChapterDetail() {
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="grid grid-cols-[5fr_3fr] gap-4 justify-between mb-2">
-          <h1 className="text-2xl md:text-3xl font-normal text-blue-500">{chapter.title}</h1>
-          <span className="w-auto h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
+          <h1 className="text-2xl md:text-3xl font-normal text-blue-500 select-none">{chapter.title}</h1>
+          <span className="w-auto select-none h-8 rounded-lg bg-indigo-700/30 border-2 border-indigo-500 flex items-center justify-center text-gray-200 font-normal">
             Chapter {chapter.id}
           </span>
         </div>
-        <p className="text-sm tracking-wide text-gray-400 mb-6">{chapter.description}</p>
+        <p className="text-sm tracking-wide text-gray-400 mb-6 select-none">{chapter.description}</p>
 
         <div className="quests">
           <h2 className="text-xl font-semibold mb-4 text-gray-300">Quests</h2>
@@ -62,13 +58,13 @@ export default function ChapterDetail() {
                 } rounded-lg flex justify-between items-center ${!user ? "opacity-50" : ""}`}
               >
                 <div>
-                  <h3 className="text-lg font-normal text-gray-200">{quest.title}</h3>
-                  <p className="text-sm text-gray-400">{quest.description}</p>
+                  <h3 className="text-lg font-normal text-yellow-300/60 select-none">{quest.title}</h3>
+                  <p className="text-sm text-gray-400 select-none">{quest.description}</p>
                 </div>
                 {user && (
                   <span
-                    className={`text-sm font-semibold px-2 py-1 rounded ${
-                      isQuestCompleted(quest.id) ? "bg-green-500 text-white" : "bg-gray-600 text-gray-300"
+                    className={`text-sm font-normal px-2 py-1 rounded select-none ${
+                      isQuestCompleted(quest.id) ? "bg-green-500/50 text-white" : "text-gray-300"
                     }`}
                   >
                     {isQuestCompleted(quest.id) ? "Completed" : "Incomplete"}
@@ -78,7 +74,7 @@ export default function ChapterDetail() {
 
               {user ? (
                 isQuestCompleted(quest.id) ? (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg pointer-events-none">
                     <motion.span
                       className="text-green-500 flex"
                       initial={{ opacity: 0, scale: 0 }}
@@ -103,11 +99,11 @@ export default function ChapterDetail() {
                   </div>
                 ) : (
                   <motion.button
-                    className="mt-2 text-gray-300 hover:text-indigo-400 transition-colors font-normal text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-start space-x-2"
-                    whileHover={{ scale: 1.05 }}
+                    className="mt-2 text-indigo-400 font-normal text-sm py-1 px-2 rounded focus:outline-none focus:shadow-outline w-full flex items-center justify-center space-x-2"
+                    whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     aria-label={`Start quest: ${quest.title}`}
-                    onClick={() => handleQuestSelect(quest.id)} // Replaced Link with onClick
+                    onClick={() => handleQuestSelect(quest.id)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -119,11 +115,11 @@ export default function ChapterDetail() {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-7-7v14" />
                     </svg>
-                    <span>Start Quest</span>
+                    <span className="border-b-2 border-indigo-300">Start Quest</span>
                   </motion.button>
                 )
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/70 rounded-lg pointer-events-none">
                   <span className="text-gray-400 font-semibold">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
