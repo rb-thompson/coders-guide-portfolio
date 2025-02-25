@@ -122,11 +122,19 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const setCurrentChapter = (chapterId: number) => {
     setCurrentChapterId(chapterId);
     setCurrentQuestId(null); // Reset quest when changing chapters
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('currentChapterId', chapterId.toString());
+      localStorage.removeItem('currentQuestId');
+    }
   };
 
   const setCurrentQuest = (chapterId: number, questId: number) => {
     setCurrentChapterId(chapterId);
     setCurrentQuestId(questId);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('currentChapterId', chapterId.toString());
+      localStorage.setItem('currentQuestId', questId.toString());
+    }
   };
 
   const getCurrentChapter = () => {
@@ -138,13 +146,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return chapter?.quests.find((q) => q.id === currentQuestId);
   };
 
+  // Load persisted state on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('currentUser');
       console.log('Client-side load from localStorage (currentUser):', storedUser);
-      if (storedUser) {
-        setUserState(JSON.parse(storedUser));
-      }
+      if (storedUser) setUserState(JSON.parse(storedUser));
+      const storedChapterId = localStorage.getItem('currentChapterId');
+      const storedQuestId = localStorage.getItem('currentQuestId');
+      if (storedChapterId) setCurrentChapterId(parseInt(storedChapterId, 10));
+      if (storedQuestId) setCurrentQuestId(parseInt(storedQuestId, 10));
     }
   }, []);
 
