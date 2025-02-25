@@ -89,7 +89,7 @@ export default function Home() {
           className="relative z-10 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }} // Delayed fade-in
+          transition={{ duration: 1 }} 
         >
           <h1 className="text-3xl md:text-6xl font-bold mb-4 px-2">
             It’s portfolios all the way down, partner!
@@ -101,7 +101,7 @@ export default function Home() {
           className="relative z-10 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 2 }} // Slightly longer delay
+          transition={{ duration: 1.2, delay: .5 }} // Slightly longer delay
         >
           <p className="text-sm sm:text-lg md:text-xl mb-8 px-2 py-2 bg-black/40 rounded-lg select-none">
             <span className="text-blue-500">Your portfolio project is just a wormhole away.</span> <br />
