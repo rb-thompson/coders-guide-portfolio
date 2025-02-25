@@ -6,7 +6,6 @@
 import { useRouter } from "next/navigation"; // For routing and URL params
 import { motion } from "framer-motion"; // Smooth animations
 import { useUser } from "@/contexts/UserContext"; // User state for quest progress
-import { chapters } from "@/chapters/chapters"; // Static chapter data
 
 export default function ChapterDetail() {
   const router = useRouter();
