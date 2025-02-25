@@ -22,6 +22,25 @@ export default function QuestComplete() {
     }).then(() => setInit(true));
   }, []);
 
+  // Countdown timer logic (moved to top)
+  useEffect(() => {
+    const chapter = getCurrentChapter();
+    const quest = getCurrentQuest();
+    const chapterId = chapter?.id;
+    const questIndex = chapter && quest ? chapter.quests.findIndex((q) => q.id === quest.id) : -1;
+    const nextQuest = chapter && questIndex !== -1 && questIndex + 1 < chapter.quests.length ? chapter.quests[questIndex + 1] : undefined;
+
+    if (nextQuest && countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (countdown === 0 && nextQuest && chapterId) {
+      setCurrentQuest(chapterId, nextQuest.id);
+      router.push(`/chapters/${chapterId}/${nextQuest.title.toLowerCase().replace(/\s+/g, "-")}`);
+    }
+  }, [countdown, getCurrentChapter, getCurrentQuest, setCurrentQuest, router]);
+
   const chapter = getCurrentChapter();
   const quest = getCurrentQuest();
 
@@ -51,20 +70,6 @@ export default function QuestComplete() {
   const nextQuest = questIndex !== -1 && questIndex + 1 < chapter.quests.length ? chapter.quests[questIndex + 1] : undefined;
   const nextChapter = chapters.find((ch) => ch.id === chapterId + 1);
 
-  // Countdown timer logic
-  useEffect(() => {
-    if (nextQuest && countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => prev - 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    } else if (countdown === 0 && nextQuest) {
-      setCurrentQuest(chapterId, nextQuest.id);
-      router.push(`/chapters/${chapterId}/${nextQuest.title.toLowerCase().replace(/\s+/g, "-")}`);
-    }
-  }, [countdown, nextQuest, chapterId, setCurrentQuest, router]);
-
-  // Confetti options
   const confettiOptions: ISourceOptions = {
     fullScreen: { enable: false },
     particles: {
@@ -79,7 +84,6 @@ export default function QuestComplete() {
     detectRetina: true,
   };
 
-  // Shimmer animation for badge
   const shimmerVariants = {
     shimmer: {
       backgroundPosition: ["-200%", "200%"],
@@ -120,7 +124,6 @@ export default function QuestComplete() {
             You’ve conquered <span className="text-blue-400">{quest.title}</span> and earned the{" "}
             <span className="text-indigo-400">{quest.badge?.name}</span> badge!
           </motion.p>
-          {/* Shimmering Badge */}
           {quest.badge && (
             <motion.div
               className="inline-block px-4 py-2 bg-gradient-to-r from-indigo-500 via-blue-500 to-indigo-500 bg-[length:200%_100%] text-white font-mono rounded-md mx-auto"
