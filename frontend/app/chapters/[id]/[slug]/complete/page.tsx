@@ -87,7 +87,7 @@ export default function QuestComplete() {
       number: { value: 100 },
       color: { value: ["#4f46e5", "#22d3ee", "#10b981"] },
       shape: { type: "circle" },
-      opacity: { value: 1 },
+      opacity: { value: .8 },
       size: { value: { min: 2, max: 5 } },
       move: { enable: true, speed: 6, direction: "top", outModes: "destroy" },
       life: { duration: 2, count: 1 },
